@@ -1,5 +1,8 @@
+import { forwardRef } from "react";
 import Button from "./Button";
 
-export default function ContainedButton({ ...props }) {
-  return <Button rounded variant="contained" {...props} />;
-}
+const ContainedButton = forwardRef(function ({ ...props }, ref) {
+  return <Button ref={ref} variant="contained" {...props} />;
+});
+
+export default ContainedButton;

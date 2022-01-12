@@ -1,3 +1,4 @@
+import { forwardRef, useCallback } from "react";
 import { Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import c from "classnames";
@@ -44,24 +45,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MyButton({
-  className,
-  classes: _classes,
-  text,
-  capitalize,
-  uppercase,
-  rounded,
-  contained,
-  ...props
-}) {
+const MyButton = forwardRef(function (
+  {
+    className,
+    classes: _classes,
+    text,
+    capitalize,
+    uppercase,
+    rounded,
+    contained,
+    onClick,
+    ...props
+  },
+  ref
+) {
   const classes = useStyles();
+
+  const handler = useCallback(
+    (e) => {
+      onClick?.(e);
+    },
+    [onClick]
+  );
 
   return (
     <Button
+      ref={ref}
       classes={{
         root: c(classes.root, className, _classes.root),
         outlined: c(classes.outlined, _classes.outlined),
       }}
+      onClick={handler}
       {...props}
     >
       <Typography
@@ -80,7 +94,7 @@ export default function MyButton({
       {/* {text} */}
     </Button>
   );
-}
+});
 
 MyButton.defaultProps = {
   className: "",
@@ -89,3 +103,5 @@ MyButton.defaultProps = {
   capitalize: false,
   uppercase: false,
 };
+
+export default MyButton;

@@ -1,5 +1,8 @@
+import { forwardRef } from "react";
 import Button from "./Button";
 
-export default function OutlinedButton({ ...props }) {
-  return <Button rounded variant="outlined" {...props} />;
-}
+const OutlinedButton = forwardRef(function ({ ...props }, ref) {
+  return <Button ref={ref} variant="outlined" {...props} />;
+});
+
+export default OutlinedButton;
