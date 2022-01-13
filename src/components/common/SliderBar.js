@@ -4,6 +4,9 @@ import c from "classnames";
 
 const thumbSize = 20;
 const CutomizedSlider = withStyles((theme) => ({
+  root: {
+    boxSizing: "border-box",
+  },
   marked: {
     height: 8,
   },
@@ -19,7 +22,7 @@ const CutomizedSlider = withStyles((theme) => ({
     top: `calc(50% - ${thumbSize / 2}px)`,
     backgroundColor: "#1B1B1B",
     border: "6px solid #FFD05D",
-    transform: "matrix(-1, 0, 0, 1, -4, 0)",
+    transform: `matrix(-1, 0, 0, 1, ${-thumbSize / 2}, 0)`,
   },
   track: {
     background: `linear-gradient(to right, #FF5C01, #FFD25F)`,
@@ -43,11 +46,9 @@ const CutomizedSlider = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   hideThumbShadow: {
+    boxShadow: "none !important",
     "&::before": {
-      boxShadow: "none",
-    },
-    "&:hover": {
-      boxShadow: "none",
+      boxShadow: "none !important",
     },
   },
 }));

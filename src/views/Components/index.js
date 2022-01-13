@@ -85,7 +85,7 @@ export default function Components() {
       </Box>
 
       <Box mt={5}>
-        <Slider />
+        <Slider thumbShadow={false} />
       </Box>
     </Box>
   );

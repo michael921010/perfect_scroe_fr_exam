@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.white,
   },
   body2: {
-    width: 57,
+    width: 70,
     height: 21,
     color: theme.palette.common.white,
   },
@@ -69,7 +69,11 @@ export default function Buttons() {
           </Typography>
         </Box>
         <Box display="flex" flexDirection="row" mt={1}>
-          <Button text="Button" uppercase style={{ padding: "13px 16px" }} />
+          <Button
+            text="Button"
+            uppercase
+            style={{ padding: "13px 16px", width: 335, height: 40 }}
+          />
         </Box>
       </Box>
 
