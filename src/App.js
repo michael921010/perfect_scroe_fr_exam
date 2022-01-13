@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, ScopedCssBaseline } from "@mui/material";
 import theme from "styles/theme";
-import Components from "views/Components";
+import Routes from "routes";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <CssBaseline />
 
       <ScopedCssBaseline>
-        <Components />
+        <Routes />
       </ScopedCssBaseline>
     </ThemeProvider>
   );
