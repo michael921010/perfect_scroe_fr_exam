@@ -20,6 +20,13 @@ const theme = {
     fontSize: 14,
     // lineHeight: "100%",
 
+    h3: {
+      fontWeight: "bold",
+      fontSize: 48,
+      lineHeight: "150%",
+      display: "flex",
+      alignItems: "center",
+    },
     h4: {
       fontWeight: "bold",
       fontSize: 30,
@@ -29,6 +36,9 @@ const theme = {
       fontWeight: "500",
       fontSize: 24,
       lineHeight: "150%",
+      display: "flex",
+      alignItems: "center",
+      textTransform: "capitalize",
     },
     body2: {
       fontWeight: "300",

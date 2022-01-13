@@ -3,7 +3,6 @@ import {
   Box,
   Drawer as MuiDrawer,
   Typography,
-  IconButton,
   List,
   ListItemText,
   ListItemIcon,
