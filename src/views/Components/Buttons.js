@@ -81,15 +81,6 @@ export default function Buttons() {
             </Typography>
 
             <Box display="flex" flexDirection="column" ml={5}>
-              <Typography
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 14,
-                  textTransform: "uppercase",
-                }}
-              >
-                NORMAL
-              </Typography>
               <MyOutlinedButton text="Button" capitalize />
             </Box>
           </Box>
@@ -102,15 +93,6 @@ export default function Buttons() {
             </Typography>
 
             <Box display="flex" flexDirection="column" ml={5}>
-              <Typography
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 14,
-                  textTransform: "uppercase",
-                }}
-              >
-                NORMAL
-              </Typography>
               <MyContainedButton text="Button" capitalize />
             </Box>
           </Box>
