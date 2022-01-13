@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles, withStyles } from "@mui/styles";
 import { Button, OutlinedButton, ContainedButton } from "components/common";
+import Slider from "./Slider";
 
 const MyOutlinedButton = withStyles((theme) => ({
   root: {
@@ -132,6 +133,10 @@ export default function Components() {
             </Box>
           </Box>
         </Box>
+      </Box>
+
+      <Box mt={5}>
+        <Slider />
       </Box>
     </Box>
   );
