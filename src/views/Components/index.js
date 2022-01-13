@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles, withStyles } from "@mui/styles";
 import { Button, OutlinedButton, ContainedButton } from "components/common";
+import Buttons from "./Buttons";
 import Slider from "./Slider";
 
 const MyOutlinedButton = withStyles((theme) => ({
@@ -75,64 +76,7 @@ export default function Components() {
       </Box>
 
       <Box mt={5}>
-        <Typography variant="h5" className={classes.title}>
-          Button
-        </Typography>
-
-        <Box mt={3}>
-          <Box>
-            <Typography variant="span" className={classes.normal}>
-              NORMAL
-            </Typography>
-          </Box>
-          <Box display="flex" flexDirection="row" mt={1}>
-            <Button text="Button" uppercase style={{ padding: "13px 16px" }} />
-          </Box>
-        </Box>
-
-        <Box mt={6}>
-          <Box mt={2}>
-            <Box display="flex" flexDirection="row" alignItems="center">
-              <Typography variant="body2" className={classes.body2}>
-                Outlined
-              </Typography>
-
-              <Box display="flex" flexDirection="column" ml={5}>
-                <Typography
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: 14,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  NORMAL
-                </Typography>
-                <MyOutlinedButton text="Button" capitalize />
-              </Box>
-            </Box>
-          </Box>
-
-          <Box mt={2}>
-            <Box display="flex" flexDirection="row" alignItems="center">
-              <Typography variant="body2" className={classes.body2}>
-                Contained
-              </Typography>
-
-              <Box display="flex" flexDirection="column" ml={5}>
-                <Typography
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: 14,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  NORMAL
-                </Typography>
-                <MyContainedButton text="Button" capitalize />
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+        <Buttons />
       </Box>
 
       <Box mt={5}>
