@@ -1,40 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import { makeStyles, withStyles } from "@mui/styles";
-import { Button, OutlinedButton, ContainedButton } from "components/common";
+import { makeStyles } from "@mui/styles";
 import Buttons from "./Buttons";
 import Input from "./Input";
 import Slider from "./Slider";
 
-const MyOutlinedButton = withStyles((theme) => ({
-  root: {
-    padding: "8px 10px",
-    width: 60,
-    height: 29,
-    borderRadius: 20,
-  },
-  label: {
-    fontFamily: "Open Sans",
-    fontWeight: "600",
-    fontSize: 12,
-  },
-}))(OutlinedButton);
-
-const MyContainedButton = withStyles((theme) => ({
-  root: {
-    padding: "8px 10px",
-    width: 60,
-    height: 29,
-    borderRadius: 20,
-  },
-  label: {
-    fontFamily: "Open Sans",
-    fontWeight: "600",
-    fontSize: 12,
-  },
-}))(ContainedButton);
-
 const useStyles = makeStyles((theme) => ({
   root: {
+    width: "100%",
     padding: "68px 88px",
     color: theme.palette.common.white,
   },
@@ -43,25 +15,6 @@ const useStyles = makeStyles((theme) => ({
     height: 45,
     textAlign: "center",
     letterSpacing: 0.25,
-  },
-  title: {
-    width: 78,
-    height: 36,
-    textTransform: "capitalize",
-    color: theme.palette.common.white,
-  },
-  normal: {
-    width: 62,
-    height: 14,
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: theme.palette.common.white,
-  },
-  body2: {
-    width: 57,
-    height: 21,
-    color: theme.palette.common.white,
   },
 }));
 

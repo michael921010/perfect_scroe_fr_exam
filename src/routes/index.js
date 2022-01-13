@@ -13,6 +13,11 @@ const routes = [
     key: "component",
     Component: lazy(() => import("views/Components")),
   },
+  {
+    path: "*",
+    key: "not_found",
+    Component: lazy(() => import("views/NotFound")),
+  },
 ];
 
 export default function MyRoutes() {
