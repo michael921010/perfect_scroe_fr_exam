@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 0,
     margin: "0px 10px",
     textTransform: "initial",
+    fontStyle: "normal",
   },
   capitalize: {
     textTransform: "capitalize",

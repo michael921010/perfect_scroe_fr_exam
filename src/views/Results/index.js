@@ -3,7 +3,7 @@ import { Box, Typography, ImageList } from "@mui/material";
 import { styled } from "@mui/styles";
 import { ArrowBackIosRounded } from "@mui/icons-material";
 import { useSearchParams } from "react-router-dom";
-import { Link, PullToRefresh } from "components/common";
+import { Link, PullToRefresh, Button } from "components/common";
 import { parse } from "query-string";
 import { fetchUsers } from "api/user";
 import { pick } from "ramda";
@@ -51,6 +51,7 @@ function reducer(state, action) {
       return state;
   }
 }
+const pdLevel = { page: 10, offset: 2 };
 
 export default function Results() {
   const [searchParams] = useSearchParams();
@@ -126,7 +127,7 @@ export default function Results() {
   // }, [getUsers]);
 
   return (
-    <Box width="100%" display="flex" flexDirection="column" px={10}>
+    <Box width="100%" display="flex" flexDirection="column" px={pdLevel.page}>
       <Link to="/" fitWidth>
         <Box
           width="100%"
@@ -137,7 +138,7 @@ export default function Results() {
           mt={13}
         >
           <ArrowIcon />
-          <Typography variant="h4" sx={{ ml: 2 }}>
+          <Typography variant="h4" sx={{ ml: pdLevel.offset }}>
             Results
           </Typography>
         </Box>
@@ -155,6 +156,28 @@ export default function Results() {
             ))}
           </List>
         </PullToRefresh>
+      </Box>
+
+      <Box
+        display="flex"
+        mt={4}
+        sx={[
+          (theme) => ({
+            position: "fixed",
+            bottom: -12,
+            left:
+              (pdLevel.page + pdLevel.offset) * 8 + // 頁面內容間距 theme.spacing(1)
+              // theme.spacing(pdLevel.page + pdLevel.offset) +
+              1 + // Button 的 border-width
+              theme.sizes.desktop.menu.width,
+          }),
+        ]}
+      >
+        <Button
+          text="More"
+          uppercase
+          style={{ padding: "13px 16px", width: 343, height: 40 }}
+        />
       </Box>
     </Box>
   );
