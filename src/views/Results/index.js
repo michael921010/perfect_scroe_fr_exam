@@ -3,10 +3,9 @@ import { Box, Typography, ImageList } from "@mui/material";
 import { styled } from "@mui/styles";
 import { ArrowBackIosRounded } from "@mui/icons-material";
 import { useSearchParams } from "react-router-dom";
-import { Link } from "components/common";
+import { Link, PullToRefresh } from "components/common";
 import { parse } from "query-string";
 import { fetchUsers } from "api/user";
-import PullToRefresh from "react-simple-pull-to-refresh";
 import { pick } from "ramda";
 import UserCard from "./UserCard";
 
