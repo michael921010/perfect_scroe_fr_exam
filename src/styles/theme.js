@@ -28,9 +28,11 @@ const theme = {
       alignItems: "center",
     },
     h4: {
-      fontWeight: "bold",
+      display: "flex",
+      alignItems: "center",
       fontSize: 30,
       lineHeight: "150%",
+      letterSpacing: 0.25,
     },
     h5: {
       fontWeight: "500",

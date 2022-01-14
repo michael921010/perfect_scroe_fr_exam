@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
   caption: {
     width: 168,
     height: 45,
+    fontWeight: "bold",
     textAlign: "center",
-    letterSpacing: 0.25,
   },
 }));
 

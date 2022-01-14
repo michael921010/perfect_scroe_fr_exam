@@ -9,7 +9,7 @@ import {
   ListItem as MuiListItem,
 } from "@mui/material";
 import { GridViewRounded } from "@mui/icons-material";
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "components/common";
 import { TagIcon, HomeIcon } from "icons";
 
 const drawerWidth = 80;
@@ -47,10 +47,6 @@ const Logo = styled(Typography)({
   background: "-webkit-linear-gradient(270deg, #FFD25F 0.13%, #FF5C01 100%)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
-});
-
-const Link = styled(RouterLink)({
-  textDecoration: "none",
 });
 
 const ListItem = styled(MuiListItem)(({ theme }) => ({

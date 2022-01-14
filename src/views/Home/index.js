@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles";
 import { TextField, SliderBar, Button } from "components/common";
 import Profile from "./Profile";
 import { last } from "ramda";
+import { useNavigate, createSearchParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   subtitle: {
@@ -28,20 +29,35 @@ const marks = [
 
 export default function Home() {
   const classes = useStyles();
+  const navigate = useNavigate();
+
   const [query, setQuery] = useState("");
-  const [value, setValue] = useState(marks[3].value);
+  const [pageIndex, setPageIndex] = useState(marks[3].value);
 
   const handleQuery = useCallback((e) => {
     setQuery(e.target.value);
   }, []);
 
   const handleSlider = useCallback((e, val) => {
-    setValue(val);
+    setPageIndex(val);
   }, []);
 
-  const submit = (e) => {
-    //
-  };
+  const submit = useCallback(
+    (e) => {
+      const page = marks.find(({ value }) => value === pageIndex);
+      const pageSize = Number(page?.label);
+
+      if (isNaN(pageSize)) {
+        // 阿伯出事啦
+      } else {
+        navigate({
+          pathname: "/results",
+          search: createSearchParams({ q: query, pageSize }).toString(),
+        });
+      }
+    },
+    [query, pageIndex, navigate]
+  );
 
   return (
     <Box width="100%" display="flex" flexDirection="row">
@@ -99,7 +115,7 @@ export default function Home() {
               min={marks?.[0]?.value}
               max={last(marks)?.value}
               step={null}
-              value={value}
+              value={pageIndex}
               thumbShadow={false}
               marks={marks}
               onChange={handleSlider}
@@ -119,7 +135,7 @@ export default function Home() {
 
         <Box display="flex" mt={4}>
           <Button
-            text="Button"
+            text="Search"
             uppercase
             style={{ padding: "13px 16px", width: 343, height: 40 }}
             onClick={submit}
