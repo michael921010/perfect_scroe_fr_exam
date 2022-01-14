@@ -12,9 +12,8 @@ import { GridViewRounded } from "@mui/icons-material";
 import { Link } from "components/common";
 import { TagIcon, HomeIcon } from "icons";
 
-const drawerWidth = 80;
 const closedMixin = (theme) => ({
-  width: drawerWidth,
+  width: theme.sizes.desktop.menu.width,
   backgroundColor: "#1B1B1B",
   overflowX: "hidden",
 });

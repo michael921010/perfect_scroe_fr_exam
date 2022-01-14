@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Box, Typography, Divider } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { TextField, SliderBar, Button } from "components/common";
@@ -26,26 +26,29 @@ const marks = [
   { value: 15, label: "15" },
   { value: 19, label: "50" },
 ];
+const pagePadding = 130;
 
 export default function Home() {
   const classes = useStyles();
   const navigate = useNavigate();
 
   const [query, setQuery] = useState("");
-  const [pageIndex, setPageIndex] = useState(marks[3].value);
+  const [sliderIndex, setSliderIndex] = useState(4);
+
+  const sliderInfo = useMemo(() => marks[sliderIndex] ?? {}, [sliderIndex]);
 
   const handleQuery = useCallback((e) => {
     setQuery(e.target.value);
   }, []);
 
   const handleSlider = useCallback((e, val) => {
-    setPageIndex(val);
+    const index = marks.findIndex(({ value }) => value === val);
+    setSliderIndex(index);
   }, []);
 
   const submit = useCallback(
     (e) => {
-      const page = marks.find(({ value }) => value === pageIndex);
-      const pageSize = Number(page?.label);
+      const pageSize = Number(sliderInfo?.label);
 
       if (isNaN(pageSize)) {
         // 阿伯出事啦
@@ -56,7 +59,7 @@ export default function Home() {
         });
       }
     },
-    [query, pageIndex, navigate]
+    [query, sliderInfo, navigate]
   );
 
   return (
@@ -65,13 +68,9 @@ export default function Home() {
         width="100%"
         display="flex"
         flexDirection="column"
-        style={{ padding: "0 130px" }}
+        style={{ padding: `0 ${pagePadding}px` }}
       >
-        <Box
-          mt={7}
-          color="common.white"
-          style={{ width: "100%", maxWidth: 725 }}
-        >
+        <Box mt={7} color="common.white" width="100%">
           <Typography variant="h5" style={{ height: 36 }}>
             Search
           </Typography>
@@ -87,11 +86,7 @@ export default function Home() {
           </Box>
         </Box>
 
-        <Box
-          mt={7}
-          color="common.white"
-          style={{ width: "100%", maxWidth: 725 }}
-        >
+        <Box mt={7} color="common.white" width="100%">
           <Typography variant="h5" style={{ height: 36 }}>
             # of results per page
           </Typography>
@@ -104,7 +99,7 @@ export default function Home() {
             color="common.white"
           >
             <Typography variant="h3" style={{ height: 50 }}>
-              30
+              {sliderInfo?.label ?? ""}
             </Typography>
             <Typography style={{ height: 24 }} className={classes.subtitle}>
               results
@@ -115,7 +110,7 @@ export default function Home() {
               min={marks?.[0]?.value}
               max={last(marks)?.value}
               step={null}
-              value={pageIndex}
+              value={sliderInfo.value}
               thumbShadow={false}
               marks={marks}
               onChange={handleSlider}
@@ -130,10 +125,21 @@ export default function Home() {
             border: 1,
             borderColor: "common.white",
           }}
-          style={{ opacity: 0.1, width: "100%", maxWidth: 725 }}
+          width="100%"
+          style={{ opacity: 0.1 }}
         />
 
-        <Box display="flex" mt={4}>
+        <Box
+          display="flex"
+          mt={4}
+          sx={[
+            (theme) => ({
+              position: "fixed",
+              bottom: 87,
+              left: pagePadding + theme.sizes.desktop.menu.width,
+            }),
+          ]}
+        >
           <Button
             text="Search"
             uppercase

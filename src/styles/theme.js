@@ -49,6 +49,13 @@ const theme = {
       letterSpacing: 0.25,
     },
   },
+  sizes: {
+    desktop: {
+      menu: {
+        width: 80,
+      },
+    },
+  },
 };
 
 export default createTheme(theme);
