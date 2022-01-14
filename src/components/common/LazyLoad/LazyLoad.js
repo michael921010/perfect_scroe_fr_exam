@@ -1,6 +1,6 @@
 import LazyLoad from "react-lazyload";
 import { styled } from "@mui/styles";
-import Skeleton from "./Skeleton";
+import Skeleton from "../Skeleton";
 
 const CSSLazyLoad = styled(LazyLoad)({
   width: "100%",

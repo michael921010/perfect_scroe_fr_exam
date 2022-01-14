@@ -2,8 +2,8 @@ import MuiSkeleton from "@mui/material/Skeleton";
 import { styled, makeStyles } from "@mui/styles";
 
 const CSSSkeleton = styled(MuiSkeleton)(({ theme }) => ({
-  backgroundColor: theme.palette.common.white,
-  opacity: 0.06,
+  opacity: 1,
+  backgroundColor: "rgba(255, 255, 255, 0.06)",
 }));
 
 const useStyles = makeStyles((theme) => ({
@@ -11,13 +11,18 @@ const useStyles = makeStyles((theme) => ({
     ...(fullScreen && {
       width: "100%",
       height: "100%",
+      maxWidth: "100%",
     }),
   }),
 }));
 
-export default function MySkeleton({ fullScreen, ...props }) {
+export default function MySkeleton({ fullScreen, children, ...props }) {
   const classes = useStyles({ fullScreen });
-  return <CSSSkeleton className={classes.root} {...props} />;
+  return (
+    <CSSSkeleton className={classes.root} {...props}>
+      {children}
+    </CSSSkeleton>
+  );
 }
 
 MySkeleton.defaultProps = {
