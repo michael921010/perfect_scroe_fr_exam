@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useCallback, useRef, useReducer } from "react";
+import { useMemo, useState, useCallback, useRef, useReducer } from "react";
 import { Box, Typography, ImageList } from "@mui/material";
 import { styled } from "@mui/styles";
 import { ArrowBackIosRounded } from "@mui/icons-material";
@@ -55,6 +55,7 @@ const pdLevel = { page: 10, offset: 2 };
 
 export default function Results() {
   const [searchParams] = useSearchParams();
+  const [error, setError] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const page = useRef(0);
@@ -90,6 +91,7 @@ export default function Results() {
           };
           dispatch({ type, info });
         } else {
+          setError(true);
           console.log("沒有更多 user 了。");
         }
       } catch (err) {
@@ -122,10 +124,6 @@ export default function Results() {
     getUsers();
   }, [state, getUsers]);
 
-  // useEffect(() => {
-  //   getUsers();
-  // }, [getUsers]);
-
   return (
     <Box width="100%" display="flex" flexDirection="column" px={pdLevel.page}>
       <Link to="/" fitWidth>
@@ -145,6 +143,11 @@ export default function Results() {
       </Link>
 
       <Box sx={{ color: "common.white" }} width="100%">
+        {error && (
+          <Typography sx={[{ pl: 1, mt: 2 }]}>
+            There are no search results that you are looking for.
+          </Typography>
+        )}
         <PullToRefresh
           canFetchMore
           onRefresh={handleRefresh}
@@ -177,6 +180,7 @@ export default function Results() {
           text="More"
           uppercase
           style={{ padding: "13px 16px", width: 343, height: 40 }}
+          onClick={handleFetch}
         />
       </Box>
     </Box>

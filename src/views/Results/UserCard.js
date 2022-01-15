@@ -5,7 +5,7 @@ import {
   ImageListItemBar,
 } from "@mui/material";
 import { styled } from "@mui/styles";
-import { LazyLoadImage } from "components/common";
+import { LazyLoadImage, LazyLoad } from "components/common";
 
 const Item = styled(ImageListItem)({
   margin: "15px 17px",
@@ -39,12 +39,20 @@ export default function Results({ user }) {
       <ImageListItemBar
         title={
           <Title variant="p" title={user?.name}>
-            {user?.name}
+            <LazyLoad
+              skeletonProps={{ variant: "text", width: "70%", height: 16 }}
+            >
+              {user?.name}
+            </LazyLoad>
           </Title>
         }
         subtitle={
           <Subtitle variant="p" title={user?.username}>
-            {user?.username}
+            <LazyLoad
+              skeletonProps={{ variant: "text", width: "50%", height: 16 }}
+            >
+              {user?.username}
+            </LazyLoad>
           </Subtitle>
         }
         position="below"
