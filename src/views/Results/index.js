@@ -148,11 +148,7 @@ export default function Results() {
             There are no search results that you are looking for.
           </Typography>
         )}
-        <PullToRefresh
-          canFetchMore
-          onRefresh={handleRefresh}
-          onFetchMore={handleFetch}
-        >
+        <PullToRefresh onRefresh={handleRefresh} onFetchMore={handleFetch}>
           <List>
             {flatUsers.map((user) => (
               <UserCard user={user} key={user?.id} />

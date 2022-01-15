@@ -42,11 +42,19 @@ const theme = {
       alignItems: "center",
       textTransform: "capitalize",
     },
+    body1: {
+      fontWeight: "normal",
+      fontSize: 16,
+      lineHeight: "150%",
+      letterSpacing: 0.15,
+    },
     body2: {
       fontWeight: "300",
       fontSize: 14,
       lineHeight: "150%",
       letterSpacing: 0.25,
+      display: "flex",
+      alignItems: "center",
     },
   },
   sizes: {

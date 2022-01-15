@@ -9,3 +9,4 @@ export { SliderBar, TextField, LoadingScreen, Link, Skeleton, PullToRefresh };
 
 export * from "./Button";
 export * from "./LazyLoad";
+export * from "./Tab";
