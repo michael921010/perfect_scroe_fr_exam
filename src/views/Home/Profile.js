@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: 375,
     maxHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
 
     // "@media (max-width:1200px)": {
     "@media (max-height: 1440px)": {
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Panel = styled(TabPanel)({
-  height: `calc(100% - ${size.divider + size.tabHeight}px)`,
+  flexGrow: 1,
   overflow: "hidden",
 });
 
@@ -50,7 +52,10 @@ export default function Profile() {
   return (
     <Box className={classes.root}>
       <TabContext value={value}>
-        <Box sx={{ borderBottom: size.divider, borderColor: "#1F1F1F" }}>
+        <Box
+          width="100%"
+          sx={{ borderBottom: size.divider, borderColor: "#1F1F1F" }}
+        >
           <TabList
             onChange={handleChange}
             aria-label="Follow friends"
@@ -64,8 +69,12 @@ export default function Profile() {
         </Box>
 
         <Suspense fallback={<LoadingScreen fullScreen />}>
-          {pages.map(({ value, fetch, Component }) => (
-            <Panel key={value} value={value} style={{ padding: 0 }}>
+          {pages.map(({ value, fetch }) => (
+            <Panel
+              key={value}
+              value={value}
+              style={{ padding: 0, width: "100%" }}
+            >
               <Follow fetch={fetch} />
             </Panel>
           ))}

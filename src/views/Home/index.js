@@ -65,8 +65,8 @@ export default function Home() {
   return (
     <Box width="100%" display="flex" flexDirection="row">
       <Box
-        width="100%"
         display="flex"
+        flexGrow={1}
         flexDirection="column"
         style={{ padding: `0 ${pagePadding}px` }}
       >

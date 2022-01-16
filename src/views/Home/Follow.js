@@ -1,55 +1,9 @@
 import { useMemo, useCallback, useRef, useReducer, useEffect } from "react";
-import {
-  Typography,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  ListItemAvatar,
-  Avatar as MuiAvatar,
-} from "@mui/material";
-import { makeStyles, styled, withStyles } from "@mui/styles";
-import { Button } from "components/common";
+import { List, Box } from "@mui/material";
 import { pick } from "ramda";
-import c from "classnames";
-
-const Avatar = styled(MuiAvatar)({
-  border: `1px solid #F8F8F8`,
-  "> img": {
-    objectFit: "cover",
-  },
-});
-
-const MyButton = withStyles((theme) => ({
-  root: {
-    padding: "8px 10px",
-    height: 29,
-    borderRadius: 20,
-  },
-  label: {
-    fontFamily: "Open Sans",
-    fontWeight: "600",
-    fontSize: 12,
-    lineHeight: "100%",
-  },
-}))(Button);
-
-const useStyles = makeStyles((theme) => ({
-  text: {
-    flex: "none",
-    order: 1,
-    flexGrow: 0,
-    margin: 0,
-    color: theme.palette.common.white,
-    display: "inline-block",
-    maxWidth: 115,
-  },
-  ellipsis: {
-    textOverflow: "ellipsis",
-    overflow: "hidden",
-    whiteSpace: "nowrap",
-  },
-}));
+import { PullToRefresh } from "components/common";
+import { forceCheck } from "react-lazyload";
+import Follower from "./Follower";
 
 const initialState = {
   total: Infinity,
@@ -83,7 +37,6 @@ function reducer(state, action) {
 
 const pageSize = 15;
 export default function Follow({ fetch }) {
-  const classes = useStyles();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const page = useRef(0);
@@ -100,6 +53,7 @@ export default function Follow({ fetch }) {
         // response: { page, pageSize, total, totalPages, data }
         const response = await fetch({ page: page.current + 1, pageSize });
 
+        // console.log(response);
         const _followers = response?.data ?? [];
         if (_followers?.length > 0) {
           const type = refresh ? "resetFollowers" : "addFollowers";
@@ -129,8 +83,7 @@ export default function Follow({ fetch }) {
     getFollowers(true);
   }, [getFollowers]);
 
-  const handleFetch = useCallback(async () => {
-    console.log("handleFetch");
+  const handleFetch = async () => {
     // 已經在加載中，所以不再進行加載
     if (loading.current) return;
     // page 已經到了總頁數值 totalPages，不再進行加載
@@ -142,79 +95,41 @@ export default function Follow({ fetch }) {
       page.current++;
     }
     getFollowers();
-  }, [state, getFollowers]);
+  };
+
+  const handleScroll = (e) => {
+    forceCheck();
+    const atBottom =
+      e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight;
+
+    if (atBottom) {
+      handleFetch();
+    }
+  };
 
   useEffect(() => {
+    page.current = 0;
     getFollowers();
   }, [getFollowers]);
+
+  useEffect(() => {
+    forceCheck();
+  }, [flatFollowers]);
 
   return (
     <List
       dense
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", p: 0 }}
       style={{
-        // maxHeight: "100%",
-        height: "100%",
-        // maxHeight: `calc(100vh - ${50}px)`,
+        maxHeight: "100%",
         overflowY: "scroll",
         overflowX: "hidden",
       }}
+      onScroll={handleScroll}
     >
-      {flatFollowers.map((followers) => {
-        return (
-          <ListItem
-            key={followers?.id}
-            secondaryAction={
-              <MyButton
-                capitalize
-                style={{ width: followers?.isFollowing ? 76 : 60 }}
-                text={followers?.isFollowing ? "Following" : "Follow"}
-                variant={followers?.isFollowing ? "contained" : "outlined"}
-              />
-            }
-            disablePadding
-          >
-            <ListItemButton
-              style={{
-                paddingRight: (followers?.isFollowing ? 76 : 60) + 16,
-              }}
-            >
-              <ListItemAvatar>
-                <Avatar
-                  sizes="40"
-                  variant="rounded"
-                  alt={followers?.name}
-                  title={followers?.name}
-                  //   src={followers?.avater}
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfnvEBdcVuAH0XrcMmAMVHdYE2My7KLiIuLigwP_rWx6rHsKon&usqp=CAU"
-                />
-              </ListItemAvatar>
-              <ListItemText
-                id={followers?.id}
-                primary={
-                  <Typography
-                    variant="body1"
-                    title={followers?.name}
-                    className={c(classes.text, classes.ellipsis)}
-                  >
-                    {followers?.name}
-                  </Typography>
-                }
-                secondary={
-                  <Typography
-                    variant="body2"
-                    title={followers?.username ?? "username"}
-                    className={c(classes.text, classes.ellipsis)}
-                    style={{ opacity: 0.5 }}
-                  >
-                    @{followers?.username ?? "username"}
-                  </Typography>
-                }
-              />
-            </ListItemButton>
-          </ListItem>
-        );
-      })}
+      {flatFollowers.map((follower) => (
+        <Follower key={follower?.id} follower={follower} />
+      ))}
     </List>
   );
 }
