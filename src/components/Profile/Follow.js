@@ -83,7 +83,7 @@ export default function Follow({ fetch }) {
     getFollowers(true);
   }, [getFollowers]);
 
-  const handleFetch = async () => {
+  const handleFetch = useCallback(async () => {
     // 已經在加載中，所以不再進行加載
     if (loading.current) return;
     // page 已經到了總頁數值 totalPages，不再進行加載
@@ -95,17 +95,20 @@ export default function Follow({ fetch }) {
       page.current++;
     }
     getFollowers();
-  };
+  }, [state, getFollowers]);
 
-  const handleScroll = (e) => {
-    forceCheck();
-    const atBottom =
-      e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight;
+  const handleScroll = useCallback(
+    (e) => {
+      forceCheck();
+      const atBottom =
+        e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight;
 
-    if (atBottom) {
-      handleFetch();
-    }
-  };
+      if (atBottom) {
+        handleFetch();
+      }
+    },
+    [handleFetch]
+  );
 
   useEffect(() => {
     page.current = 0;

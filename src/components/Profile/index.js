@@ -9,7 +9,6 @@ const Follow = lazy(() => import("./Follow"));
 const size = { divider: 2, tabHeight: 48 };
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 375,
     maxHeight: "100vh",
 
     // "@media (max-width:900px)": {
@@ -18,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   lazy: {
+    width: 375,
     display: "flex",
     flexDirection: "column",
   },

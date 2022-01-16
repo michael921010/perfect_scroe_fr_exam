@@ -1,8 +1,16 @@
-import { useMemo, useState, useCallback, useRef, useReducer } from "react";
+import {
+  useMemo,
+  useState,
+  useCallback,
+  useRef,
+  useReducer,
+  useEffect,
+} from "react";
 import { Box, Typography, ImageList } from "@mui/material";
-import { styled } from "@mui/styles";
+import { styled, makeStyles } from "@mui/styles";
 import { ArrowBackIosRounded } from "@mui/icons-material";
 import { useSearchParams } from "react-router-dom";
+import { forceCheck } from "react-lazyload";
 import { Link, PullToRefresh, Button } from "components/common";
 import { parse } from "query-string";
 import { fetchUsers } from "api/user";
@@ -21,6 +29,18 @@ const List = styled(ImageList)({
   flexWrap: "wrap",
   // justifyContent: "center",
 });
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    maxHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    padding: theme.spacing(0, pdLevel.page),
+    overflowX: "hidden",
+    overflowY: "scroll",
+  },
+}));
 
 const initialState = {
   total: Infinity,
@@ -54,6 +74,7 @@ function reducer(state, action) {
 const pdLevel = { page: 10, offset: 2 };
 
 export default function Results() {
+  const classes = useStyles();
   const [searchParams] = useSearchParams();
   const [error, setError] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -81,6 +102,7 @@ export default function Results() {
           keyword: params?.q,
         });
 
+        // console.log(response);
         const _users = response?.data ?? [];
         if (_users?.length > 0) {
           const type = refresh ? "resetUsers" : "addUsers";
@@ -124,8 +146,26 @@ export default function Results() {
     getUsers();
   }, [state, getUsers]);
 
+  const handleScroll = useCallback(
+    (e) => {
+      forceCheck();
+      const atBottom =
+        e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight;
+
+      if (atBottom) {
+        handleFetch();
+      }
+    },
+    [handleFetch]
+  );
+
+  useEffect(() => {
+    page.current = 0;
+    getUsers();
+  }, [getUsers]);
+
   return (
-    <Box width="100%" display="flex" flexDirection="column" px={pdLevel.page}>
+    <Box className={classes.root} onScroll={handleScroll}>
       <Link to="/" fitWidth>
         <Box
           width="100%"
@@ -148,13 +188,13 @@ export default function Results() {
             There are no search results that you are looking for.
           </Typography>
         )}
-        <PullToRefresh onRefresh={handleRefresh} onFetchMore={handleFetch}>
-          <List>
-            {flatUsers.map((user) => (
-              <UserCard user={user} key={user?.id} />
-            ))}
-          </List>
-        </PullToRefresh>
+        {/* <PullToRefresh onRefresh={handleRefresh} onFetchMore={handleFetch}> */}
+        <List>
+          {flatUsers.map((user) => (
+            <UserCard user={user} key={user?.id} />
+          ))}
+        </List>
+        {/* </PullToRefresh> */}
       </Box>
 
       <Box
