@@ -9,23 +9,34 @@ const Follow = lazy(() => import("./Follow"));
 const size = { divider: 2, tabHeight: 48 };
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxHeight: "100vh",
+    display: "block",
+    position: "fixed",
+    right: 0,
+    top: 0,
+    bottom: 0,
 
-    // "@media (max-width:900px)": {
-    "@media (max-width: 1440px)": {
+    "@media (max-width:900px)": {
+      // "@media (max-width: 1440px)": {
       display: "none",
     },
   },
   lazy: {
-    width: 375,
+    width: theme.sizes.desktop.profile.width,
     display: "flex",
     flexDirection: "column",
+    position: "relative",
+  },
+  tabs: {
+    width: "100%",
+    border: `${size.divider}px solid #1F1F1F`,
+    position: "absolute",
   },
 }));
 
 const Panel = styled(TabPanel)({
   flexGrow: 1,
   overflow: "hidden",
+  marginTop: 50,
 });
 
 // "value" must be unique and string type
@@ -55,10 +66,7 @@ export default function Profile() {
     <Box className={classes.root}>
       <LazyLoad className={classes.lazy} placeholder={null}>
         <TabContext value={value}>
-          <Box
-            width="100%"
-            sx={{ borderBottom: size.divider, borderColor: "#1F1F1F" }}
-          >
+          <Box className={classes.tabs}>
             <TabList
               onChange={handleChange}
               aria-label="Follow friends"

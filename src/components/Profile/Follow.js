@@ -101,7 +101,8 @@ export default function Follow({ fetch }) {
     (e) => {
       forceCheck();
       const atBottom =
-        e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight;
+        e.target.scrollTop + e.target.clientHeight + 200 >=
+        e.target.scrollHeight;
 
       if (atBottom) {
         handleFetch();

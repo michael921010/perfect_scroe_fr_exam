@@ -62,6 +62,9 @@ const theme = {
       menu: {
         width: 80,
       },
+      profile: {
+        width: 375,
+      },
     },
   },
 };
