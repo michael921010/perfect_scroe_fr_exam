@@ -2,7 +2,7 @@ import { useState, useCallback, lazy, Suspense } from "react";
 import { Box } from "@mui/material";
 import { TabContext, TabPanel } from "@mui/lab";
 import { makeStyles, styled } from "@mui/styles";
-import { LoadingScreen, TabList, Tab } from "components/common";
+import { LoadingScreen, TabList, Tab, LazyLoad } from "components/common";
 import { fetchUsers, fetchFriends } from "api/user";
 const Follow = lazy(() => import("./Follow"));
 
@@ -11,13 +11,15 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: 375,
     maxHeight: "100vh",
+
+    // "@media (max-width:900px)": {
+    "@media (max-width: 1440px)": {
+      display: "none",
+    },
+  },
+  lazy: {
     display: "flex",
     flexDirection: "column",
-
-    // "@media (max-width:1200px)": {
-    "@media (max-height: 1440px)": {
-      // display: "none",
-    },
   },
 }));
 
@@ -51,35 +53,37 @@ export default function Profile() {
 
   return (
     <Box className={classes.root}>
-      <TabContext value={value}>
-        <Box
-          width="100%"
-          sx={{ borderBottom: size.divider, borderColor: "#1F1F1F" }}
-        >
-          <TabList
-            onChange={handleChange}
-            aria-label="Follow friends"
-            allowScrollButtonsMobile
-            variant="fullWidth"
+      <LazyLoad className={classes.lazy} placeholder={null}>
+        <TabContext value={value}>
+          <Box
+            width="100%"
+            sx={{ borderBottom: size.divider, borderColor: "#1F1F1F" }}
           >
-            {pages.map(({ value, label }) => (
-              <Tab key={value} label={label} value={value} />
-            ))}
-          </TabList>
-        </Box>
-
-        <Suspense fallback={<LoadingScreen fullScreen />}>
-          {pages.map(({ value, fetch }) => (
-            <Panel
-              key={value}
-              value={value}
-              style={{ padding: 0, width: "100%" }}
+            <TabList
+              onChange={handleChange}
+              aria-label="Follow friends"
+              allowScrollButtonsMobile
+              variant="fullWidth"
             >
-              <Follow fetch={fetch} />
-            </Panel>
-          ))}
-        </Suspense>
-      </TabContext>
+              {pages.map(({ value, label }) => (
+                <Tab key={value} label={label} value={value} />
+              ))}
+            </TabList>
+          </Box>
+
+          <Suspense fallback={<LoadingScreen fullScreen />}>
+            {pages.map(({ value, fetch }) => (
+              <Panel
+                key={value}
+                value={value}
+                style={{ padding: 0, width: "100%" }}
+              >
+                <Follow fetch={fetch} />
+              </Panel>
+            ))}
+          </Suspense>
+        </TabContext>
+      </LazyLoad>
     </Box>
   );
 }
