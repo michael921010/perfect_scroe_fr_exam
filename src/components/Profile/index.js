@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     width: "100%",
-    border: `${size.divider}px solid #1F1F1F`,
+    borderBottom: `${size.divider}px solid #1F1F1F`,
     position: "absolute",
   },
 }));

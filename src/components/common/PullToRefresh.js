@@ -1,5 +1,6 @@
 import { makeStyles } from "@mui/styles";
-import PullToRefresh from "react-simple-pull-to-refresh";
+// import PullToRefresh from "react-simple-pull-to-refresh";
+import PullToRefresh from "./react-simple-pull-to-refresh";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,5 +1,5 @@
 import { useMemo, useCallback, useRef, useReducer, useEffect } from "react";
-import { List, Box } from "@mui/material";
+import { List } from "@mui/material";
 import { pick } from "ramda";
 import { PullToRefresh } from "components/common";
 import { forceCheck } from "react-lazyload";
@@ -41,6 +41,7 @@ export default function Follow({ fetch }) {
 
   const page = useRef(0);
   const loading = useRef(false);
+  const list = useRef(null);
 
   const flatFollowers = useMemo(() => state.followers.flat(), [state]);
 
@@ -97,19 +98,9 @@ export default function Follow({ fetch }) {
     getFollowers();
   }, [state, getFollowers]);
 
-  const handleScroll = useCallback(
-    (e) => {
-      forceCheck();
-      const atBottom =
-        e.target.scrollTop + e.target.clientHeight + 200 >=
-        e.target.scrollHeight;
-
-      if (atBottom) {
-        handleFetch();
-      }
-    },
-    [handleFetch]
-  );
+  const handleScroll = useCallback((e) => {
+    forceCheck();
+  }, []);
 
   useEffect(() => {
     page.current = 0;
@@ -129,11 +120,19 @@ export default function Follow({ fetch }) {
         overflowY: "scroll",
         overflowX: "hidden",
       }}
+      ref={list}
       onScroll={handleScroll}
     >
-      {flatFollowers.map((follower) => (
-        <Follower key={follower?.id} follower={follower} />
-      ))}
+      <PullToRefresh
+        container={list.current}
+        fetchMoreThreshold={200}
+        onRefresh={handleRefresh}
+        onFetchMore={handleFetch}
+      >
+        {flatFollowers.map((follower) => (
+          <Follower key={follower?.id} follower={follower} />
+        ))}
+      </PullToRefresh>
     </List>
   );
 }
