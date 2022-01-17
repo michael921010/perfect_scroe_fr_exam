@@ -32,8 +32,6 @@ const CutomizedSlider = withStyles((theme) => ({
     opacity: 0,
   },
   markLabel: {
-    opacity: 0.5,
-    color: theme.palette.common.white,
     fontWeight: "500",
     fontSize: 16,
     lineHeight: "150%",

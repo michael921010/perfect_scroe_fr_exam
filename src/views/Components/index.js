@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     padding: "68px 88px",
-    color: theme.palette.common.white,
   },
   caption: {
     width: 168,

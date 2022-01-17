@@ -17,9 +17,10 @@ const theme = {
     background: {
       default: "#121212",
     },
-    // common: {
-    //   black: "#121212",
-    // },
+    text: {
+      primary: "#FFFFFF",
+      secondary: "rgba(255, 255, 255, 0.5)",
+    },
   },
   typography: {
     fontFamily: ["Ubuntu"].join(","),

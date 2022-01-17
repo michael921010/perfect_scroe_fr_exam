@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   title: {
-    color: theme.palette.common.white,
     marginTop: theme.spacing(10),
     paddingLeft: theme.spacing(0.5),
 
@@ -45,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
   list: {
     marginTop: theme.spacing(3),
     width: "100%",
-    color: theme.palette.common.white,
 
     [theme.breakpoints.down("sm")]: {
       margin: 0,

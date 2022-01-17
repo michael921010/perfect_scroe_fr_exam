@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
     width: 65,
     height: 36,
     textTransform: "capitalize",
-    color: theme.palette.common.white,
   },
 }));
 

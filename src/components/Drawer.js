@@ -46,7 +46,6 @@ const ListItem = styled(MuiListItem)(({ theme }) => ({
     maxWidth: 40,
     overflow: "hidden",
     ".MuiTypography-root": {
-      color: theme.palette.common.white,
       fontSize: 12,
       fontWeight: "normal",
       lineHeight: "150%",

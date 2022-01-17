@@ -24,7 +24,6 @@ const Toolbar = styled(MuiToolbar)({
 });
 
 const Title = styled(Typography)(({ theme }) => ({
-  color: theme.palette.common.white,
   textTransform: "capitalize",
   marginLeft: 20,
 }));
@@ -34,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexFlow: "row nowrap",
     alignItems: "center",
-    color: theme.palette.common.white,
   },
 }));
 

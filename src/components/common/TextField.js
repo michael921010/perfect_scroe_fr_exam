@@ -29,7 +29,6 @@ const CssTextField = styled(TextField)(({ theme }) => ({
       opacity: 0.3,
     },
     "&.MuiInputBase-input": {
-      color: theme.palette.common.white,
       fontWeight: "normal",
       fontSize: 14,
       lineHeight: "150%",

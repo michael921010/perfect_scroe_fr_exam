@@ -15,7 +15,6 @@ export default function LoadingScreen({ description, fullScreen }) {
         <Box mt={2}>
           <Typography
             variant="p"
-            sx={{ color: "common.white" }}
             style={{ letterSpacing: 0.25, textTransform: "capitalize" }}
           >
             {description}

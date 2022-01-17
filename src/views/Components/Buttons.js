@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
     width: 78,
     height: 36,
     textTransform: "capitalize",
-    color: theme.palette.common.white,
   },
   normal: {
     width: 62,
@@ -44,12 +43,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
-    color: theme.palette.common.white,
   },
   body2: {
     width: 70,
     height: 21,
-    color: theme.palette.common.white,
   },
 }));
 

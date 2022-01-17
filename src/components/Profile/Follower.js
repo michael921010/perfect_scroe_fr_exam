@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
     order: 1,
     flexGrow: 0,
     margin: 0,
-    color: theme.palette.common.white,
     display: "inline-block",
     maxWidth: 210,
   },

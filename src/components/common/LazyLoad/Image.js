@@ -6,7 +6,6 @@ import Skeleton from "../Skeleton";
 
 const ErrorMsg = styled(Typography)(({ theme }) => ({
   width: "fit-content",
-  color: theme.palette.common.white,
   visibility: "visible",
 }));
 

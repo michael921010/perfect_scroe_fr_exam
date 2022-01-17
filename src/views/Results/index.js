@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    color: theme.palette.common.white,
     marginTop: theme.spacing(13),
 
     [theme.breakpoints.down("sm")]: {
@@ -219,7 +218,6 @@ export default function Results() {
       <Box
         ref={scroll}
         className={classes.content}
-        sx={{ color: "common.white" }}
         width="100%"
         onScroll={handleScroll}
       >

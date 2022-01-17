@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginTop: theme.spacing(7),
-    color: theme.palette.common.white,
     width: "100%",
 
     [theme.breakpoints.down("sm")]: {
@@ -141,18 +140,12 @@ export default function Home() {
         </Box>
       </Box>
 
-      <Box mt={7} color="common.white" width="100%">
+      <Box mt={7} width="100%">
         <Typography variant="h5" style={{ height: 36 }}>
           # of results per page
         </Typography>
 
-        <Box
-          mt={4}
-          display="flex"
-          flexDirection="row"
-          alignItems="flex-end"
-          color="common.white"
-        >
+        <Box mt={4} display="flex" flexDirection="row" alignItems="flex-end">
           <Typography variant="h3" style={{ height: 50 }}>
             {sliderInfo?.label ?? ""}
           </Typography>
