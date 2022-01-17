@@ -4,7 +4,7 @@ import { makeStyles } from "@mui/styles";
 import { useLocation } from "react-router-dom";
 import Drawer from "./Drawer";
 import Profile from "./Profile";
-import Header from "./common/Header";
+import Header from "./Header";
 import c from "classnames";
 
 const useStyles = makeStyles((theme) => ({

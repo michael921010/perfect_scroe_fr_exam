@@ -4,7 +4,6 @@ import LoadingScreen from "./LoadingScreen";
 import Link from "./Link";
 import Skeleton from "./Skeleton";
 import PullToRefresh from "./PullToRefresh";
-import Header from "./Header";
 import Logo from "./Logo";
 
 export {
@@ -14,7 +13,6 @@ export {
   Link,
   Skeleton,
   PullToRefresh,
-  Header,
   Logo,
 };
 
