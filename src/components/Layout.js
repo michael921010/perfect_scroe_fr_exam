@@ -8,8 +8,8 @@ import c from "classnames";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    "@media (min-width:900px)": {
-      // "@media (min-width: 1440px)": {
+    paddingRight: 0,
+    [theme.breakpoints.up("xl")]: {
       paddingRight: theme.sizes.desktop.profile.width,
     },
   },

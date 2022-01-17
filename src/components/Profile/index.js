@@ -9,15 +9,14 @@ const Follow = lazy(() => import("./Follow"));
 const size = { divider: 2, tabHeight: 48 };
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "block",
-    position: "fixed",
-    right: 0,
-    top: 0,
-    bottom: 0,
+    display: "none",
 
-    "@media (max-width:900px)": {
-      // "@media (max-width: 1440px)": {
-      display: "none",
+    [theme.breakpoints.up("xl")]: {
+      display: "block",
+      position: "fixed",
+      right: 0,
+      top: 0,
+      bottom: 0,
     },
   },
   lazy: {

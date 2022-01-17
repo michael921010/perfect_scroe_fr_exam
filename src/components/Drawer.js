@@ -24,6 +24,10 @@ const Drawer = styled(MuiDrawer)(({ theme }) => ({
   boxSizing: "border-box",
   ...closedMixin(theme),
   "& .MuiDrawer-paper": closedMixin(theme),
+
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
 }));
 
 const DrawerHeader = styled(Box)(({ theme }) => ({

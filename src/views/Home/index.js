@@ -1,11 +1,42 @@
 import { useState, useCallback, useMemo } from "react";
 import { Box, Typography, Divider } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { makeStyles, withStyles } from "@mui/styles";
 import { TextField, SliderBar, Button } from "components/common";
 import { last } from "ramda";
 import { useNavigate, createSearchParams } from "react-router-dom";
 
+const pagePadding = { desktop: 130, mobile: 20 };
 const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    display: "flex",
+    flexDirection: "column",
+    padding: `0 ${pagePadding.desktop}px`,
+
+    [theme.breakpoints.down("sm")]: {
+      padding: `0 ${pagePadding.mobile}px`,
+    },
+  },
+  title: {
+    marginTop: theme.spacing(7),
+    color: theme.palette.common.white,
+    width: "100%",
+
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 0,
+    },
+  },
+  divider: {
+    backgroundColor: theme.palette.common.white,
+    marginTop: theme.spacing(3),
+    border: `1px solid ${theme.palette.common.white}`,
+    width: "100%",
+    opacity: 0.1,
+
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 221,
+    },
+  },
   subtitle: {
     fontSize: 14,
     lineHeight: "150%",
@@ -15,7 +46,35 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 0,
     margin: "0 8px",
   },
+  button: {
+    display: "flex",
+    marginTop: theme.spacing(4),
+    position: "fixed",
+    bottom: 87,
+    left: pagePadding.desktop + theme.sizes.desktop.menu.width,
+
+    [theme.breakpoints.down("sm")]: {
+      position: "relative",
+      left: "initial",
+      bottom: "initial",
+      justifyContent: "center",
+      width: "100%",
+      marginTop: theme.spacing(10),
+    },
+  },
 }));
+
+const Submit = withStyles((theme) => ({
+  root: {
+    padding: "13px 16px",
+    width: 343,
+    height: 40,
+
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+  },
+}))(Button);
 
 const marks = [
   { value: 3, label: "3" },
@@ -25,7 +84,6 @@ const marks = [
   { value: 15, label: "15" },
   { value: 19, label: "50" },
 ];
-const pagePadding = 130;
 
 export default function Home() {
   const classes = useStyles();
@@ -62,13 +120,8 @@ export default function Home() {
   );
 
   return (
-    <Box
-      flexGrow={1}
-      display="flex"
-      flexDirection="column"
-      style={{ padding: `0 ${pagePadding}px` }}
-    >
-      <Box mt={7} color="common.white" width="100%">
+    <Box className={classes.root}>
+      <Box className={classes.title}>
         <Typography variant="h5" style={{ height: 36 }}>
           Search
         </Typography>
@@ -116,34 +169,10 @@ export default function Home() {
         </Box>
       </Box>
 
-      <Divider
-        sx={{
-          backgroundColor: "common.white",
-          mt: 3,
-          border: 1,
-          borderColor: "common.white",
-        }}
-        width="100%"
-        style={{ opacity: 0.1 }}
-      />
+      <Divider className={classes.divider} />
 
-      <Box
-        display="flex"
-        mt={4}
-        sx={[
-          (theme) => ({
-            position: "fixed",
-            bottom: 87,
-            left: pagePadding + theme.sizes.desktop.menu.width,
-          }),
-        ]}
-      >
-        <Button
-          text="Search"
-          uppercase
-          style={{ padding: "13px 16px", width: 343, height: 40 }}
-          onClick={submit}
-        />
+      <Box className={classes.button}>
+        <Submit text="Search" uppercase onClick={submit} />
       </Box>
     </Box>
   );

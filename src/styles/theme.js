@@ -1,6 +1,13 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = {
+  breakpoints: {
+    values: {
+      xs: 450,
+      sm: 600,
+      xl: 1440,
+    },
+  },
   palette: {
     primary: {
       light: "#FFD25F",

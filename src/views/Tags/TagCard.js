@@ -7,11 +7,20 @@ import {
 import { styled, makeStyles } from "@mui/styles";
 import { Skeleton, LazyLoad } from "components/common";
 
-const Item = styled(ImageListItem)({
+const Item = styled(ImageListItem)(({ theme }) => ({
   margin: "18px 12px",
   width: 150,
   height: 150,
-});
+
+  [theme.breakpoints.down("sm")]: {
+    padding: 12,
+    margin: 0,
+    width: "50%",
+  },
+  [theme.breakpoints.down("xs")]: {
+    width: "100%",
+  },
+}));
 
 const Title = styled(Typography)({
   fontSize: 15,

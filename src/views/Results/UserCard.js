@@ -7,9 +7,13 @@ import {
 import { styled } from "@mui/styles";
 import { LazyLoadImage, LazyLoad } from "components/common";
 
-const Item = styled(ImageListItem)({
+const Item = styled(ImageListItem)(({ theme }) => ({
   margin: "15px 17px",
-});
+  [theme.breakpoints.down("sm")]: {
+    margin: "16px 0",
+    width: "100%",
+  },
+}));
 
 const Title = styled(Typography)({
   fontSize: 15,
@@ -24,10 +28,20 @@ const Subtitle = styled(Typography)({
   color: "#B2B2B2",
 });
 
+const ImageFrame = styled(Box)(({ theme }) => ({
+  width: 219,
+  height: 146,
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    height: "auto",
+    minHeight: 146,
+  },
+}));
+
 export default function Results({ user }) {
   return (
     <Item>
-      <Box width={219} height={146}>
+      <ImageFrame>
         <LazyLoadImage
           //   src={user?.avater}
           src="https://www.kikikokomedia.com/wp-content/uploads/three_major_night_scenes.jpg"
@@ -35,7 +49,7 @@ export default function Results({ user }) {
           title={user?.name}
           loading="lazy"
         />
-      </Box>
+      </ImageFrame>
       <ImageListItemBar
         title={
           <Title variant="p" title={user?.name}>

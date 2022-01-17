@@ -1,7 +1,8 @@
 import { useEffect, useCallback, useState, useRef } from "react";
 import { Box, Typography, ImageList } from "@mui/material";
-import { styled } from "@mui/styles";
+import { styled, makeStyles } from "@mui/styles";
 import { fetchTags } from "api/tag";
+import { forceCheck } from "react-lazyload";
 import TagCard from "./TagCard";
 
 const List = styled(ImageList)({
@@ -11,7 +12,53 @@ const List = styled(ImageList)({
   flexWrap: "wrap",
 });
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    padding: theme.spacing(0, 32),
+
+    [theme.breakpoints.down("sm")]: {
+      padding: 0,
+    },
+  },
+  title: {
+    color: theme.palette.common.white,
+    marginTop: theme.spacing(10),
+    paddingLeft: theme.spacing(0.5),
+
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 0,
+      padding: "20px 0 0 18px",
+
+      zIndex: 1,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      backgroundColor: theme.palette.background.default,
+      width: "100%",
+    },
+  },
+  list: {
+    marginTop: theme.spacing(3),
+    width: "100%",
+    color: theme.palette.common.white,
+
+    [theme.breakpoints.down("sm")]: {
+      margin: 0,
+      padding: "0 13px",
+      paddingTop: 65,
+      overflow: "hidden scroll",
+      maxHeight: "100vh",
+      flexGrow: 1,
+      gap: "0 !important",
+    },
+  },
+}));
+
 export default function Tags() {
+  const classes = useStyles();
   const [tags, setTags] = useState([]);
 
   const loading = useRef(false);
@@ -35,19 +82,23 @@ export default function Tags() {
     }
   }, []);
 
+  const handleScroll = useCallback((e) => {
+    forceCheck();
+  }, []);
+
   useEffect(() => {
     getTags();
   }, [getTags]);
 
   return (
-    <Box width="100%" display="flex" flexDirection="column" px={32}>
-      <Box color="common.white" mt={10} pl={0.5}>
+    <Box className={classes.root}>
+      <Box className={classes.title}>
         <Typography variant="h4" style={{ margin: "0 7px" }}>
           Tags
         </Typography>
       </Box>
 
-      <List mt={3} sx={{ width: "100%", color: "common.white" }}>
+      <List className={classes.list} onScroll={handleScroll}>
         {tags.map((tag) => (
           <TagCard key={tag?.id} tag={tag} />
         ))}
