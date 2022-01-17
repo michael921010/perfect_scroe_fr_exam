@@ -1,7 +1,6 @@
 import MuiBadge from "@mui/material/Badge";
 import { withStyles } from "@mui/styles";
-import { styled } from "@mui/material/styles";
-import MuiCopyIcon from "@mui/icons-material/ContentCopyRounded";
+import HomeIcon from "./HomeIcon";
 
 const Badge = withStyles({
   dot: {
@@ -15,15 +14,10 @@ const Badge = withStyles({
   },
 })(MuiBadge);
 
-const Icon = styled(MuiCopyIcon)({
-  transform: "rotate(180deg)",
-  fill: "#8A8A8F",
-});
-
 export default function TagIcon(props) {
   return (
     <Badge color="primary" variant="dot">
-      <Icon {...props} />
+      <HomeIcon {...props} />
     </Badge>
   );
 }

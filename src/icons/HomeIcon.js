@@ -3,7 +3,7 @@ import MuiCopyIcon from "@mui/icons-material/ContentCopyRounded";
 
 const Icon = styled(MuiCopyIcon)(({ theme }) => ({
   transform: "rotate(180deg)",
-  color: theme.palette.common.white,
+  color: "#8A8A8F",
 }));
 
 export default function HomeIcon(props) {

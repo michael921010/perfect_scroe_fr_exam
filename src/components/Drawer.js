@@ -1,10 +1,13 @@
 import { styled } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
 import { Box, List, ListItemText, ListItemIcon } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiListItem from "@mui/material/ListItem";
 import { GridViewRounded } from "@mui/icons-material";
 import { Link, Logo } from "components/common";
 import { TagIcon, HomeIcon } from "icons";
+import { useLocation } from "react-router-dom";
+import c from "classnames";
 
 const closedMixin = (theme) => ({
   width: theme.sizes.desktop.menu.width,
@@ -54,6 +57,19 @@ const ListItem = styled(MuiListItem)(({ theme }) => ({
   },
 }));
 
+const AppIcon = styled(GridViewRounded)({
+  color: "#8A8A8F",
+});
+
+const useStyles = makeStyles((theme) => ({
+  selected: {
+    color: theme.palette.common.white,
+  },
+  hidden: {
+    opacity: 0,
+  },
+}));
+
 const list = [
   {
     path: "/",
@@ -71,11 +87,14 @@ const list = [
     path: "/component",
     key: "component",
     label: "App",
-    Icon: GridViewRounded,
+    Icon: AppIcon,
   },
 ];
 
 export default function MyDrawer() {
+  const classes = useStyles();
+  const location = useLocation();
+
   return (
     <Drawer variant="permanent">
       <DrawerHeader>
@@ -84,16 +103,22 @@ export default function MyDrawer() {
         </Link>
       </DrawerHeader>
       <List>
-        {list.map(({ path, key, label, Icon }) => (
-          <Link to={path ?? "/"} key={key}>
-            <ListItem>
-              <ListItemIcon>
-                <Icon />
-              </ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItem>
-          </Link>
-        ))}
+        {list.map(({ path, key, label, Icon }) => {
+          const selected = location?.pathname === path;
+          return (
+            <Link to={path ?? "/"} key={key}>
+              <ListItem>
+                <ListItemIcon>
+                  <Icon className={c({ [classes.selected]: selected })} />
+                </ListItemIcon>
+                <ListItemText
+                  className={c({ [classes.hidden]: !selected })}
+                  primary={label}
+                />
+              </ListItem>
+            </Link>
+          );
+        })}
       </List>
     </Drawer>
   );
