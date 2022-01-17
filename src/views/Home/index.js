@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { Box, Typography, Divider } from "@mui/material";
 import { makeStyles, withStyles } from "@mui/styles";
-import { TextField, SliderBar, Button } from "components/common";
+import { TextField, SliderBar, Button, Header } from "components/common";
 import { last } from "ramda";
 import { useNavigate, createSearchParams } from "react-router-dom";
 
@@ -12,9 +12,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     padding: `0 ${pagePadding.desktop}px`,
+    maxHeight: "100%",
+    overflow: "hidden scroll",
+    position: "relative",
 
     [theme.breakpoints.down("sm")]: {
       padding: `0 ${pagePadding.mobile}px`,
+      paddingBottom: 24,
     },
   },
   title: {

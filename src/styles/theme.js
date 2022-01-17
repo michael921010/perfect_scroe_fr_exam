@@ -64,6 +64,9 @@ const theme = {
       alignItems: "center",
     },
   },
+  zIndex: {
+    appBar: 1201,
+  },
   sizes: {
     desktop: {
       menu: {
@@ -71,6 +74,11 @@ const theme = {
       },
       profile: {
         width: 375,
+      },
+    },
+    mobile: {
+      appBar: {
+        height: 70,
       },
     },
   },

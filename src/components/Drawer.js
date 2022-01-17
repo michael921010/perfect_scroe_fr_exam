@@ -1,15 +1,9 @@
 import { styled } from "@mui/material/styles";
-import {
-  Box,
-  Drawer as MuiDrawer,
-  Typography,
-  List,
-  ListItemText,
-  ListItemIcon,
-  ListItem as MuiListItem,
-} from "@mui/material";
+import { Box, List, ListItemText, ListItemIcon } from "@mui/material";
+import MuiDrawer from "@mui/material/Drawer";
+import MuiListItem from "@mui/material/ListItem";
 import { GridViewRounded } from "@mui/icons-material";
-import { Link } from "components/common";
+import { Link, Logo } from "components/common";
 import { TagIcon, HomeIcon } from "icons";
 
 const closedMixin = (theme) => ({
@@ -38,19 +32,6 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
-
-const Logo = styled(Typography)({
-  height: 15,
-  textTransform: "uppercase",
-  fontStyle: "normal",
-  fontWeight: "bold",
-  fontSize: 13,
-  lineHeight: "15px",
-  letterSpacing: "-0.05em",
-  background: "-webkit-linear-gradient(270deg, #FFD25F 0.13%, #FF5C01 100%)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-});
 
 const ListItem = styled(MuiListItem)(({ theme }) => ({
   display: "flex",
@@ -100,7 +81,7 @@ export default function MyDrawer() {
     <Drawer variant="permanent">
       <DrawerHeader>
         <Link to="/">
-          <Logo>Logo</Logo>
+          <Logo />
         </Link>
       </DrawerHeader>
       <List>

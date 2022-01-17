@@ -4,8 +4,19 @@ import LoadingScreen from "./LoadingScreen";
 import Link from "./Link";
 import Skeleton from "./Skeleton";
 import PullToRefresh from "./PullToRefresh";
+import Header from "./Header";
+import Logo from "./Logo";
 
-export { SliderBar, TextField, LoadingScreen, Link, Skeleton, PullToRefresh };
+export {
+  SliderBar,
+  TextField,
+  LoadingScreen,
+  Link,
+  Skeleton,
+  PullToRefresh,
+  Header,
+  Logo,
+};
 
 export * from "./Button";
 export * from "./LazyLoad";

@@ -18,9 +18,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     padding: theme.spacing(0, 32),
+    position: "relative",
 
     [theme.breakpoints.down("sm")]: {
       padding: 0,
+      maxHeight: "100%",
     },
   },
   title: {
@@ -50,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "0 13px",
       paddingTop: 65,
       overflow: "hidden scroll",
-      maxHeight: "100vh",
+      maxHeight: "100%",
       flexGrow: 1,
       gap: "0 !important",
     },

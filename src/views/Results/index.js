@@ -1,9 +1,9 @@
 import { useMemo, useState, useCallback, useRef, useReducer } from "react";
 import { Box, Typography, ImageList } from "@mui/material";
 import { styled, makeStyles } from "@mui/styles";
-import { ArrowBackIosRounded } from "@mui/icons-material";
 import { useSearchParams } from "react-router-dom";
 import { Link, PullToRefresh, Button } from "components/common";
+import { ArrowLeftIcon } from "icons";
 import { parse } from "query-string";
 import { fetchUsers } from "api/user";
 import { pick } from "ramda";
@@ -11,10 +11,7 @@ import { forceCheck } from "react-lazyload";
 import UserCard from "./UserCard";
 
 const sizeLevel = { desktop: 80, mobile: 20, offset: 16 };
-const ArrowIcon = styled(ArrowBackIosRounded)(({ theme }) => ({
-  width: 25,
-  heigth: 25,
-
+const ArrowIcon = styled(ArrowLeftIcon)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     display: "none",
   },
@@ -38,12 +35,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     padding: `0 ${sizeLevel.desktop}px`,
-    overflowX: "hidden",
-    overflowY: "scroll",
+    overflow: "hidden",
 
     [theme.breakpoints.down("sm")]: {
       padding: 0,
       overflow: "hidden",
+      maxHeight: "100%",
     },
   },
   title: {
@@ -86,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
       zIndex: 1,
       position: "absolute",
       top: 0,
-      left: sizeLevel.mobile,
+      padding: `0 ${sizeLevel.mobile}px`,
       backgroundColor: theme.palette.background.default,
       width: "100%",
     },
@@ -94,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     [theme.breakpoints.down("sm")]: {
       overflow: "hidden scroll",
-      maxHeight: "100vh",
+      height: "100%",
       flexGrow: 1,
       padding: `0 ${sizeLevel.mobile}px`,
       paddingTop: 65,

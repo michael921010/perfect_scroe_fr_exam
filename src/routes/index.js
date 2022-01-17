@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { LoadingScreen } from "components/common";
 
-const routes = [
+export const routes = [
   {
     path: "/",
     key: "home",
