@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import Drawer from "./Drawer";
 import Profile from "./Profile";
 import Header from "./Header";
+import BottomNavigation from "./BottomNavigation";
 import c from "classnames";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: 0,
     },
   },
+  showNavigation: {
+    [theme.breakpoints.down("sm")]: {
+      paddingBottom: theme.sizes.mobile.bottomNavigation.height,
+    },
+  },
 }));
 
 export default function Layout({ children }) {
@@ -36,17 +42,28 @@ export default function Layout({ children }) {
     [location]
   );
 
+  const needNavigation = useMemo(
+    () => ["/"].includes(location?.pathname),
+    [location]
+  );
+
   return (
     <Box display="flex" flexDirection="column">
       <Header />
 
-      <Box className={classes.body}>
+      <Box
+        className={c(classes.body, {
+          [classes.showNavigation]: needNavigation,
+        })}
+      >
         <Drawer />
         <Box flexGrow={1} className={c({ [classes.container]: needProfile })}>
           {children}
         </Box>
         {needProfile && <Profile />}
       </Box>
+
+      {needNavigation && <BottomNavigation />}
     </Box>
   );
 }

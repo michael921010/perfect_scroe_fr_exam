@@ -81,6 +81,9 @@ const theme = {
       appBar: {
         height: 70,
       },
+      bottomNavigation: {
+        height: 66,
+      },
     },
   },
 };

@@ -12,6 +12,7 @@ import { find, propEq } from "ramda";
 const AppBar = styled(MuiAppBar)(({ theme }) => ({
   height: theme.sizes.mobile.appBar.height,
   backgroundColor: theme.palette.background.default,
+  boxShadow: "none",
 
   [theme.breakpoints.up("sm")]: {
     display: "none",

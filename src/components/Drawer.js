@@ -3,11 +3,10 @@ import { makeStyles } from "@mui/styles";
 import { Box, List, ListItemText, ListItemIcon } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiListItem from "@mui/material/ListItem";
-import { GridViewRounded } from "@mui/icons-material";
 import { Link, Logo } from "components/common";
-import { TagIcon, HomeIcon } from "icons";
 import { useLocation } from "react-router-dom";
 import c from "classnames";
+import { navigationList } from "configs/layout";
 
 const closedMixin = (theme) => ({
   width: theme.sizes.desktop.menu.width,
@@ -57,10 +56,6 @@ const ListItem = styled(MuiListItem)(({ theme }) => ({
   },
 }));
 
-const AppIcon = styled(GridViewRounded)({
-  color: "#8A8A8F",
-});
-
 const useStyles = makeStyles((theme) => ({
   selected: {
     color: theme.palette.common.white,
@@ -69,27 +64,6 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0,
   },
 }));
-
-const list = [
-  {
-    path: "/",
-    key: "home",
-    label: "Home",
-    Icon: HomeIcon,
-  },
-  {
-    path: "/tags",
-    key: "tags",
-    label: "Tags",
-    Icon: TagIcon,
-  },
-  {
-    path: "/component",
-    key: "component",
-    label: "App",
-    Icon: AppIcon,
-  },
-];
 
 export default function MyDrawer() {
   const classes = useStyles();
@@ -103,7 +77,7 @@ export default function MyDrawer() {
         </Link>
       </DrawerHeader>
       <List>
-        {list.map(({ path, key, label, Icon }) => {
+        {navigationList.map(({ path, key, label, Icon }) => {
           const selected = location?.pathname === path;
           return (
             <Link to={path ?? "/"} key={key}>
