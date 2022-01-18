@@ -97,7 +97,7 @@ export default function Follower({ follower }) {
               variant="rounded"
               alt={follower?.name}
               title={follower?.name}
-              //   src={followers?.avater}
+              // src={follower?.avater}
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfnvEBdcVuAH0XrcMmAMVHdYE2My7KLiIuLigwP_rWx6rHsKon&usqp=CAU"
             />
           </LazyLoad>
