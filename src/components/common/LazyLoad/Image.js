@@ -1,8 +1,10 @@
 import { useState, useCallback, Fragment, useMemo } from "react";
 import { Typography } from "@mui/material";
-import { styled } from "@mui/styles";
+import { styled } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
 import LazyLoad from "./LazyLoad";
 import Skeleton from "../Skeleton";
+import c from "classnames";
 
 const ErrorMsg = styled(Typography)(({ theme }) => ({
   width: "fit-content",
@@ -15,7 +17,18 @@ const Image = styled("img")({
   objectFit: "cover",
 });
 
+const useStyles = makeStyles((theme) => ({
+  transparent: {
+    opacity: 0,
+  },
+  skeleton: {
+    zIndex: 1,
+    position: "absolute",
+  },
+}));
+
 export default function LazyLoadImage({ errorMessage, onError, ...props }) {
+  const classes = useStyles();
   const [error, setError] = useState(false);
 
   const hasMessage = useMemo(() => errorMessage?.length > 0, [errorMessage]);
@@ -30,9 +43,10 @@ export default function LazyLoadImage({ errorMessage, onError, ...props }) {
 
   return (
     <Fragment>
-      {error ? (
+      {error && (
         <Skeleton
           animation={false}
+          className={classes.skeleton}
           sx={[
             (theme) => ({
               ...(hasMessage && {
@@ -45,11 +59,10 @@ export default function LazyLoadImage({ errorMessage, onError, ...props }) {
         >
           {hasMessage && <ErrorMsg>{errorMessage}</ErrorMsg>}
         </Skeleton>
-      ) : (
-        <LazyLoad>
-          <Image {...props} onError={handleError} />
-        </LazyLoad>
       )}
+      <LazyLoad className={c({ [classes.transparent]: error })}>
+        <Image {...props} onError={handleError} />
+      </LazyLoad>
     </Fragment>
   );
 }

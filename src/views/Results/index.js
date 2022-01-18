@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback, useRef, useReducer } from "react";
-import { Box, Typography, ImageList } from "@mui/material";
+import { Box, Typography, ImageList, useMediaQuery } from "@mui/material";
 import { styled, makeStyles } from "@mui/styles";
 import { useSearchParams } from "react-router-dom";
 import { Link, PullToRefresh, Button } from "components/common";
@@ -130,6 +130,7 @@ function reducer(state, action) {
 
 export default function Results() {
   const classes = useStyles();
+  const matchDesktop = useMediaQuery((theme) => theme.breakpoints.up("sm"));
   const [searchParams] = useSearchParams();
   const [error, setError] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -227,7 +228,7 @@ export default function Results() {
           </Typography>
         )}
         <PullToRefresh
-          container={scroll.current}
+          container={matchDesktop ? null : scroll.current}
           fetchMoreThreshold={200}
           onRefresh={handleRefresh}
           onFetchMore={handleFetch}

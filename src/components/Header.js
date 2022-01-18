@@ -6,8 +6,6 @@ import Typography from "@mui/material/Typography";
 import { useLocation } from "react-router-dom";
 import { Logo, Link } from "components/common";
 import { ArrowLeftIcon } from "icons";
-import { routes } from "routes";
-import { find, propEq } from "ramda";
 
 const AppBar = styled(MuiAppBar)(({ theme }) => ({
   height: theme.sizes.mobile.appBar.height,
@@ -41,10 +39,6 @@ export default function Header() {
   const classes = useStyles();
   const location = useLocation();
 
-  const pageLabel = useMemo(
-    () => find(propEq("path", location?.pathname))(routes)?.key ?? "",
-    [location?.pathname]
-  );
   const atHome = useMemo(() => "/" === location?.pathname, [location]);
   const general = useMemo(() => !atHome, [atHome]);
 
@@ -54,7 +48,7 @@ export default function Header() {
         {general && (
           <Link to="/" fitWidth className={classes.link}>
             <ArrowLeftIcon />
-            <Title variant="h4">{pageLabel}</Title>
+            <Title variant="h4">Home page</Title>
           </Link>
         )}
 

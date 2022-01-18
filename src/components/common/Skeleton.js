@@ -1,5 +1,6 @@
 import MuiSkeleton from "@mui/material/Skeleton";
 import { styled, makeStyles } from "@mui/styles";
+import c from "classnames";
 
 const CSSSkeleton = styled(MuiSkeleton)(({ theme }) => ({
   opacity: 1,
@@ -16,16 +17,22 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-export default function MySkeleton({ fullScreen, children, ...props }) {
+export default function MySkeleton({
+  className,
+  fullScreen,
+  children,
+  ...props
+}) {
   const classes = useStyles({ fullScreen });
   return (
-    <CSSSkeleton className={classes.root} {...props}>
+    <CSSSkeleton className={c(classes.root, className)} {...props}>
       {children}
     </CSSSkeleton>
   );
 }
 
 MySkeleton.defaultProps = {
+  className: "",
   animation: "wave",
   variant: "rect",
   fullScreen: true,

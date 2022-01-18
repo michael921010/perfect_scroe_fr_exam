@@ -14,6 +14,10 @@ const Paper = styled(MuiPaper)(({ theme }) => ({
   bottom: 0,
   left: 0,
   right: 0,
+  backgroundColor: "rgba(24, 24, 24, 0.2)",
+  boxShadow: "inset 0px 0.5px 0px rgba(0, 0, 0, 0.8)",
+  backdropFilter: "blur(54.3656px)",
+  borderRadius: 0,
 
   [theme.breakpoints.up("sm")]: {
     display: "none",
@@ -22,7 +26,7 @@ const Paper = styled(MuiPaper)(({ theme }) => ({
 
 const Navigation = styled(BottomNavigation)(({ theme }) => ({
   height: "100%",
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: "inherit",
 }));
 
 const Action = styled(BottomNavigationAction)(({ theme }) => ({}));

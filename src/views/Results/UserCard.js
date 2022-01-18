@@ -31,10 +31,12 @@ const Subtitle = styled(Typography)({
 const ImageFrame = styled(Box)(({ theme }) => ({
   width: 219,
   height: 146,
+  position: "relative",
+  overflow: "hidden",
+  minHeight: 146,
   [theme.breakpoints.down("sm")]: {
     width: "100%",
     height: "auto",
-    minHeight: 146,
   },
 }));
 
@@ -43,7 +45,7 @@ export default function Results({ user }) {
     <Item>
       <ImageFrame>
         <LazyLoadImage
-          //   src={user?.avater}
+          // src={user?.avater}
           src="https://www.kikikokomedia.com/wp-content/uploads/three_major_night_scenes.jpg"
           alt={user?.name}
           title={user?.name}
