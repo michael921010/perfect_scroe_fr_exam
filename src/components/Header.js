@@ -12,7 +12,7 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   boxShadow: "none",
 
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up("md")]: {
     display: "none",
   },
 }));

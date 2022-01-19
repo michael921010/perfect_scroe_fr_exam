@@ -5,6 +5,7 @@ const theme = {
     values: {
       xs: 450,
       sm: 600,
+      md: 1024,
       xl: 1440,
     },
   },

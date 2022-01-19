@@ -22,12 +22,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexFlow: "row nowrap",
 
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       paddingTop: 0,
     },
   },
   showNavigation: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       paddingBottom: theme.sizes.mobile.bottomNavigation.height,
     },
   },

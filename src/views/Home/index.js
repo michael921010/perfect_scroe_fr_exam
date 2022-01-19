@@ -16,17 +16,26 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden scroll",
     position: "relative",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       padding: `0 ${pagePadding.mobile}px`,
       paddingBottom: 24,
+      alignItems: "center",
     },
   },
   title: {
     marginTop: theme.spacing(7),
     width: "100%",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       marginTop: 0,
+      maxWidth: 725,
+    },
+  },
+  slideBar: {
+    marginTop: theme.spacing(7),
+    width: "100%",
+    [theme.breakpoints.down("md")]: {
+      maxWidth: 725,
     },
   },
   divider: {
@@ -38,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
 
     [theme.breakpoints.down("sm")]: {
       marginTop: 221,
+    },
+    [theme.breakpoints.down("md")]: {
+      maxWidth: 725,
     },
   },
   subtitle: {
@@ -56,13 +68,14 @@ const useStyles = makeStyles((theme) => ({
     bottom: 87,
     left: pagePadding.desktop + theme.sizes.desktop.menu.width,
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       position: "relative",
       left: "initial",
       bottom: "initial",
       justifyContent: "center",
       width: "100%",
       marginTop: theme.spacing(10),
+      maxWidth: 725,
     },
   },
 }));
@@ -140,7 +153,7 @@ export default function Home() {
         </Box>
       </Box>
 
-      <Box mt={7} width="100%">
+      <Box className={classes.slideBar}>
         <Typography variant="h5" style={{ height: 36 }}>
           # of results per page
         </Typography>

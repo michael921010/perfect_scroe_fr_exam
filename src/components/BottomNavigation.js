@@ -19,7 +19,7 @@ const Paper = styled(MuiPaper)(({ theme }) => ({
   backdropFilter: "blur(54.3656px)",
   borderRadius: 0,
 
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up("md")]: {
     display: "none",
   },
 }));
@@ -29,7 +29,24 @@ const Navigation = styled(BottomNavigation)(({ theme }) => ({
   backgroundColor: "inherit",
 }));
 
-const Action = styled(BottomNavigationAction)(({ theme }) => ({}));
+const Action = styled(BottomNavigationAction)(({ theme }) => ({
+  color: `${theme.palette.common.white} !important`,
+  svg: {
+    transition: theme.transitions.create(
+      "all",
+      theme.transitions.duration.short,
+      theme.transitions.easing.easeInOut
+    ),
+  },
+  "&:hover": {
+    svg: {
+      fill: theme.palette.common.white,
+    },
+    ".MuiSvgIcon-root": {
+      color: theme.palette.common.white,
+    },
+  },
+}));
 
 const useStyles = makeStyles((theme) => ({
   selected: {
@@ -51,7 +68,7 @@ export default function LabelBottomNavigation() {
 
   return (
     <Paper elevation={3}>
-      <Navigation showLabels value={location?.pathname} onChange={handleChange}>
+      <Navigation value={location?.pathname} onChange={handleChange}>
         {navigationList.map(({ key, path, Icon }) => {
           const selected = location?.pathname === path;
           return (

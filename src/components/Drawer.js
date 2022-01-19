@@ -21,7 +21,7 @@ const Drawer = styled(MuiDrawer)(({ theme }) => ({
   ...closedMixin(theme),
   "& .MuiDrawer-paper": closedMixin(theme),
 
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     display: "none",
   },
 }));
@@ -38,15 +38,44 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
 const ListItem = styled(MuiListItem)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+
+  "&:hover": {
+    svg: {
+      fill: theme.palette.common.white,
+    },
+    ".MuiSvgIcon-root": {
+      color: theme.palette.common.white,
+    },
+    ".MuiListItemText-root": {
+      opacity: 1,
+    },
+  },
   ".MuiListItemIcon-root": {
     minWidth: "fit-content",
     ".MuiSvgIcon-root": {
       margin: "0 auto",
+      transition: theme.transitions.create(
+        "all",
+        theme.transitions.duration.short,
+        theme.transitions.easing.easeInOut
+      ),
+    },
+    svg: {
+      transition: theme.transitions.create(
+        "all",
+        theme.transitions.duration.short,
+        theme.transitions.easing.easeInOut
+      ),
     },
   },
   ".MuiListItemText-root": {
     maxWidth: 40,
     overflow: "hidden",
+    transition: theme.transitions.create(
+      "all",
+      theme.transitions.duration.short,
+      theme.transitions.easing.easeInOut
+    ),
     ".MuiTypography-root": {
       fontSize: 12,
       fontWeight: "normal",
@@ -59,6 +88,7 @@ const ListItem = styled(MuiListItem)(({ theme }) => ({
 const useStyles = makeStyles((theme) => ({
   selected: {
     color: theme.palette.common.white,
+    fill: theme.palette.common.white,
   },
   hidden: {
     opacity: 0,

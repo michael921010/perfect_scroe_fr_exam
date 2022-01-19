@@ -9,8 +9,15 @@ import { LazyLoadImage, LazyLoad } from "components/common";
 
 const Item = styled(ImageListItem)(({ theme }) => ({
   margin: "15px 17px",
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     margin: "16px 0",
+    width: `${100 / 3}%`,
+    padding: 4,
+  },
+  "@media (max-width:720px)": {
+    width: `${100 / 2}%`,
+  },
+  [theme.breakpoints.down("sm")]: {
     width: "100%",
   },
 }));
@@ -34,7 +41,7 @@ const ImageFrame = styled(Box)(({ theme }) => ({
   position: "relative",
   overflow: "hidden",
   minHeight: 146,
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     width: "100%",
     height: "auto",
   },

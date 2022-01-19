@@ -10,9 +10,10 @@ import { pick } from "ramda";
 import { forceCheck } from "react-lazyload";
 import UserCard from "./UserCard";
 
-const sizeLevel = { desktop: 80, mobile: 20, offset: 16 };
+const sizeLevel = { desktop: 80, mobile: 20, offset: 20 };
+
 const ArrowIcon = styled(ArrowLeftIcon)(({ theme }) => ({
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     display: "none",
   },
 }));
@@ -22,10 +23,10 @@ const List = styled(ImageList)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   flexWrap: "wrap",
-  // justifyContent: "center",
 
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     marginTop: 4,
+    gap: "0 !important",
   },
 }));
 
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     padding: `0 ${sizeLevel.desktop}px`,
     overflow: "hidden",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       padding: 0,
       overflow: "hidden",
       maxHeight: "100%",
@@ -50,16 +51,18 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginTop: theme.spacing(13),
 
-    [theme.breakpoints.down("sm")]: {
-      marginTop: 20,
+    "& .MuiTypography-h4": {
+      marginLeft: 31,
     },
-
+  },
+  title2: {
+    marginTop: 20,
     "& .MuiTypography-h4": {
       marginLeft: sizeLevel.offset,
+    },
 
-      [theme.breakpoints.down("sm")]: {
-        marginLeft: 0,
-      },
+    [theme.breakpoints.up("md")]: {
+      display: "none",
     },
   },
   button: {
@@ -69,31 +72,25 @@ const useStyles = makeStyles((theme) => ({
     bottom: -12,
     left:
       sizeLevel.desktop +
-      sizeLevel.offset +
+      16 +
       1 + // Button 的 border-width
       theme.sizes.desktop.menu.width,
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       display: "none",
     },
   },
   link: {
-    [theme.breakpoints.down("sm")]: {
-      zIndex: 1,
-      position: "absolute",
-      top: 0,
-      padding: `0 ${sizeLevel.mobile}px`,
-      backgroundColor: theme.palette.background.default,
-      width: "100%",
+    [theme.breakpoints.down("md")]: {
+      display: "none",
     },
   },
   content: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       overflow: "hidden scroll",
       height: "100%",
       flexGrow: 1,
-      padding: `0 ${sizeLevel.mobile}px`,
-      paddingTop: 65,
+      padding: `0 16px`,
     },
   },
 }));
@@ -130,7 +127,7 @@ function reducer(state, action) {
 
 export default function Results() {
   const classes = useStyles();
-  const matchDesktop = useMediaQuery((theme) => theme.breakpoints.up("sm"));
+  const matchDesktop = useMediaQuery((theme) => theme.breakpoints.up("md"));
   const [searchParams] = useSearchParams();
   const [error, setError] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -215,6 +212,10 @@ export default function Results() {
           <Typography variant="h4">Results</Typography>
         </Box>
       </Link>
+
+      <Box className={classes.title2}>
+        <Typography variant="h4">Results</Typography>
+      </Box>
 
       <Box
         ref={scroll}
