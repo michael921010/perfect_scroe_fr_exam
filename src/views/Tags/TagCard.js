@@ -12,10 +12,13 @@ const Item = styled(ImageListItem)(({ theme }) => ({
   width: 150,
   height: 150,
 
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     padding: 12,
     margin: 0,
-    width: "50%",
+    width: `${100 / 3}%`,
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: `${100 / 2}%`,
   },
   [theme.breakpoints.down("xs")]: {
     width: "100%",
