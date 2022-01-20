@@ -1,20 +1,37 @@
 import { useState, useCallback, useMemo } from "react";
 import { Box, Typography, Divider } from "@mui/material";
 import { makeStyles, withStyles } from "@mui/styles";
-import { TextField, SliderBar, Button } from "components/common";
+import { styled } from "@mui/material/styles";
+import { TextField, SliderBar, Button, SimpleBar } from "components/common";
 import { last } from "ramda";
 import { useNavigate, createSearchParams } from "react-router-dom";
+
+const ScrollBar = styled(SimpleBar)({
+  width: "100%",
+  maxHeight: "100%",
+});
 
 const pagePadding = { desktop: 130, mobile: 20 };
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    overflow: "hidden",
+
+    [theme.breakpoints.down("xl")]: {
+      display: "flex",
+      position: "relative",
+      maxHeight: "100%",
+    },
+  },
+  content: {
     display: "flex",
+    position: "relative",
     flexDirection: "column",
     padding: `0 ${pagePadding.desktop}px`,
-    maxHeight: "100%",
-    overflow: "hidden scroll",
-    position: "relative",
 
     [theme.breakpoints.down("md")]: {
       padding: `0 ${pagePadding.mobile}px`,
@@ -137,53 +154,62 @@ export default function Home() {
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.title}>
-        <Typography variant="h5" style={{ height: 36 }}>
-          Search
-        </Typography>
+      <ScrollBar>
+        <Box className={classes.content}>
+          <Box className={classes.title}>
+            <Typography variant="h5" style={{ height: 36 }}>
+              Search
+            </Typography>
 
-        <Box mt={3}>
-          <TextField
-            fullWidth
-            type="text"
-            value={query}
-            onChange={handleQuery}
-            placeholder="Keyword"
-          />
+            <Box mt={3}>
+              <TextField
+                fullWidth
+                type="text"
+                value={query}
+                onChange={handleQuery}
+                placeholder="Keyword"
+              />
+            </Box>
+          </Box>
+
+          <Box className={classes.slideBar}>
+            <Typography variant="h5" style={{ height: 36 }}>
+              # of results per page
+            </Typography>
+
+            <Box
+              mt={4}
+              display="flex"
+              flexDirection="row"
+              alignItems="flex-end"
+            >
+              <Typography variant="h3" style={{ height: 50 }}>
+                {sliderInfo?.label ?? ""}
+              </Typography>
+              <Typography style={{ height: 24 }} className={classes.subtitle}>
+                results
+              </Typography>
+            </Box>
+            <Box mt={1}>
+              <SliderBar
+                min={marks?.[0]?.value}
+                max={last(marks)?.value}
+                step={null}
+                value={sliderInfo.value}
+                thumbShadow={false}
+                marks={marks}
+                onChange={handleSlider}
+              />
+            </Box>
+          </Box>
+
+          <Divider className={classes.divider} />
+
+          <Box className={classes.button}>
+            <Submit text="Search" uppercase onClick={submit} />
+          </Box>
         </Box>
-      </Box>
-
-      <Box className={classes.slideBar}>
-        <Typography variant="h5" style={{ height: 36 }}>
-          # of results per page
-        </Typography>
-
-        <Box mt={4} display="flex" flexDirection="row" alignItems="flex-end">
-          <Typography variant="h3" style={{ height: 50 }}>
-            {sliderInfo?.label ?? ""}
-          </Typography>
-          <Typography style={{ height: 24 }} className={classes.subtitle}>
-            results
-          </Typography>
-        </Box>
-        <Box mt={1}>
-          <SliderBar
-            min={marks?.[0]?.value}
-            max={last(marks)?.value}
-            step={null}
-            value={sliderInfo.value}
-            thumbShadow={false}
-            marks={marks}
-            onChange={handleSlider}
-          />
-        </Box>
-      </Box>
-
-      <Divider className={classes.divider} />
-
-      <Box className={classes.button}>
-        <Submit text="Search" uppercase onClick={submit} />
-      </Box>
+      </ScrollBar>
     </Box>
   );
 }

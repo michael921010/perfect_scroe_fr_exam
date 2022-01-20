@@ -1,9 +1,21 @@
 import { useMemo, useCallback, useRef, useReducer, useEffect } from "react";
-import { List } from "@mui/material";
+import MuiList from "@mui/material/List";
+import { styled } from "@mui/material/styles";
 import { pick } from "ramda";
-import { PullToRefresh } from "components/common";
 import { forceCheck } from "react-lazyload";
+import { SimpleBar } from "components/common";
 import Follower from "./Follower";
+
+const List = styled(MuiList)({
+  width: "100%",
+  height: "100%",
+  padding: 0,
+});
+
+const ScrollBar = styled(SimpleBar)({
+  width: "100%",
+  maxHeight: "100%",
+});
 
 const initialState = {
   total: Infinity,
@@ -41,7 +53,6 @@ export default function Follow({ fetch }) {
 
   const page = useRef(0);
   const loading = useRef(false);
-  const list = useRef(null);
 
   const flatFollowers = useMemo(() => state.followers.flat(), [state]);
 
@@ -65,7 +76,6 @@ export default function Follow({ fetch }) {
           };
           dispatch({ type, info });
         } else {
-          //   setError(true);
           console.log("沒有更多 followers 了。");
         }
       } catch (err) {
@@ -75,14 +85,6 @@ export default function Follow({ fetch }) {
     },
     [fetch]
   );
-
-  const handleRefresh = useCallback(async () => {
-    // 已經在加載中，所以不在進行加載
-    if (loading.current) return;
-
-    page.current = 0;
-    getFollowers(true);
-  }, [getFollowers]);
 
   const handleFetch = useCallback(async () => {
     // 已經在加載中，所以不再進行加載
@@ -98,9 +100,19 @@ export default function Follow({ fetch }) {
     getFollowers();
   }, [state, getFollowers]);
 
-  const handleScroll = useCallback((e) => {
-    forceCheck();
-  }, []);
+  const handleScroll = useCallback(
+    (e) => {
+      const { scrollTop, scrollHeight, clientHeight } = e.target;
+      const atBottom = scrollHeight - scrollTop - clientHeight < 200;
+
+      if (atBottom) {
+        handleFetch();
+      }
+
+      forceCheck();
+    },
+    [handleFetch]
+  );
 
   useEffect(() => {
     page.current = 0;
@@ -112,27 +124,12 @@ export default function Follow({ fetch }) {
   }, [flatFollowers]);
 
   return (
-    <List
-      dense
-      sx={{ width: "100%", p: 0 }}
-      style={{
-        maxHeight: "100%",
-        overflowY: "scroll",
-        overflowX: "hidden",
-      }}
-      ref={list}
-      onScroll={handleScroll}
-    >
-      <PullToRefresh
-        container={list.current}
-        fetchMoreThreshold={200}
-        onRefresh={handleRefresh}
-        onFetchMore={handleFetch}
-      >
+    <List dense>
+      <ScrollBar onScroll={handleScroll}>
         {flatFollowers.map((follower) => (
           <Follower key={follower?.id} follower={follower} />
         ))}
-      </PullToRefresh>
+      </ScrollBar>
     </List>
   );
 }

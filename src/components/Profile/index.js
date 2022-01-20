@@ -37,6 +37,8 @@ const Panel = styled(TabPanel)({
   flexGrow: 1,
   overflow: "hidden",
   marginTop: 50,
+  padding: 0,
+  width: "100%",
 });
 
 // "value" must be unique and string type
@@ -80,11 +82,7 @@ export default function Profile() {
 
         <Suspense fallback={<LoadingScreen fullScreen />}>
           {pages.map(({ value, fetch }) => (
-            <Panel
-              key={value}
-              value={value}
-              style={{ padding: 0, width: "100%" }}
-            >
+            <Panel key={value} value={value}>
               <Follow fetch={fetch} />
             </Panel>
           ))}

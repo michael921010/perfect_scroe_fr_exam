@@ -5,6 +5,7 @@ import Link from "./Link";
 import Skeleton from "./Skeleton";
 import PullToRefresh from "./PullToRefresh";
 import Logo from "./Logo";
+import SimpleBar from "./SimpleBar";
 
 export {
   SliderBar,
@@ -14,6 +15,7 @@ export {
   Skeleton,
   PullToRefresh,
   Logo,
+  SimpleBar,
 };
 
 export * from "./Button";

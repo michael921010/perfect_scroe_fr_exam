@@ -3,7 +3,13 @@ import { Box, Typography, ImageList } from "@mui/material";
 import { styled, makeStyles } from "@mui/styles";
 import { fetchTags } from "api/tag";
 import { forceCheck } from "react-lazyload";
+import { SimpleBar } from "components/common";
 import TagCard from "./TagCard";
+
+const ScrollBar = styled(SimpleBar)({
+  width: "100%",
+  maxHeight: "100%",
+});
 
 const List = styled(ImageList)({
   width: "100%",
@@ -15,14 +21,19 @@ const List = styled(ImageList)({
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    padding: theme.spacing(0, 32),
     position: "relative",
 
     [theme.breakpoints.down("md")]: {
-      padding: 0,
       maxHeight: "100%",
+    },
+  },
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    padding: theme.spacing(0, 32),
+
+    [theme.breakpoints.down("md")]: {
+      padding: 0,
     },
   },
   title: {
@@ -34,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
       padding: "20px 0 0 18px",
 
       zIndex: 1,
-      position: "absolute",
+      position: "fixed",
       left: 0,
-      top: 0,
+      top: 70,
       backgroundColor: theme.palette.background.default,
       width: "100%",
     },
@@ -49,9 +60,6 @@ const useStyles = makeStyles((theme) => ({
       margin: 0,
       padding: "0 13px",
       paddingTop: 65,
-      overflow: "hidden scroll",
-      maxHeight: "100%",
-      flexGrow: 1,
       gap: "0 !important",
     },
   },
@@ -92,17 +100,21 @@ export default function Tags() {
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.title}>
-        <Typography variant="h4" style={{ margin: "0 7px" }}>
-          Tags
-        </Typography>
-      </Box>
+      <ScrollBar onScroll={handleScroll}>
+        <Box className={classes.content}>
+          <Box className={classes.title}>
+            <Typography variant="h4" style={{ margin: "0 7px" }}>
+              Tags
+            </Typography>
+          </Box>
 
-      <List className={classes.list} onScroll={handleScroll}>
-        {tags.map((tag) => (
-          <TagCard key={tag?.id} tag={tag} />
-        ))}
-      </List>
+          <List className={classes.list}>
+            {tags.map((tag) => (
+              <TagCard key={tag?.id} tag={tag} />
+            ))}
+          </List>
+        </Box>
+      </ScrollBar>
     </Box>
   );
 }

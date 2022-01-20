@@ -9,7 +9,7 @@ import {
 import { Box, Typography, ImageList } from "@mui/material";
 import { styled, makeStyles } from "@mui/styles";
 import { useSearchParams } from "react-router-dom";
-import { Link, Button } from "components/common";
+import { Link, Button, SimpleBar } from "components/common";
 import { ArrowLeftIcon } from "icons";
 import { parse } from "query-string";
 import { fetchUsers } from "api/user";
@@ -25,11 +25,15 @@ const ArrowIcon = styled(ArrowLeftIcon)(({ theme }) => ({
   },
 }));
 
+const ScrollBar = styled(SimpleBar)({
+  width: "100%",
+  maxHeight: "100%",
+});
+
 const List = styled(ImageList)(({ theme }) => ({
   width: "100%",
   display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
+  flexFlow: "row wrap",
 
   [theme.breakpoints.down("md")]: {
     marginTop: 4,
@@ -39,24 +43,26 @@ const List = styled(ImageList)(({ theme }) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    padding: `0 ${sizeLevel.desktop}px`,
-    overflow: "hidden scroll",
     position: "absolute",
     top: 0,
     bottom: 0,
     left: 0,
     right: 0,
+    overflow: "hidden",
 
     [theme.breakpoints.down("xl")]: {
+      display: "flex",
       position: "relative",
       maxHeight: "100%",
     },
+  },
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    padding: `0 ${sizeLevel.desktop}px`,
 
     [theme.breakpoints.down("md")]: {
       padding: 0,
-      overflow: "hidden",
     },
   },
   title: {
@@ -104,9 +110,8 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  content: {
+  listWrap: {
     [theme.breakpoints.down("md")]: {
-      overflow: "hidden scroll",
       flexGrow: 1,
       padding: `0 16px`,
       marginTop: 65,
@@ -195,14 +200,6 @@ export default function Results() {
     [params]
   );
 
-  // const handleRefresh = useCallback(async () => {
-  //   // 已經在加載中，所以不在進行加載
-  //   if (loading.current) return;
-
-  //   page.current = 0;
-  //   getUsers(true);
-  // }, [getUsers]);
-
   const handleFetch = useCallback(async () => {
     // 已經在加載中，所以不再進行加載
     if (loading.current) return;
@@ -235,39 +232,43 @@ export default function Results() {
   }, [getUsers]);
 
   return (
-    <Box className={classes.root} onScroll={handleScroll}>
-      <Link to="/" fitWidth className={classes.link}>
-        <Box className={classes.title}>
-          <ArrowIcon />
-          <Typography variant="h4">Results</Typography>
+    <Box className={classes.root}>
+      <ScrollBar onScroll={handleScroll}>
+        <Box className={classes.content}>
+          <Link to="/" fitWidth className={classes.link}>
+            <Box className={classes.title}>
+              <ArrowIcon />
+              <Typography variant="h4">Results</Typography>
+            </Box>
+          </Link>
+
+          <Box className={classes.title2}>
+            <Typography variant="h4">Results</Typography>
+          </Box>
+
+          <Box className={classes.listWrap}>
+            {error && (
+              <Typography sx={[{ pl: 1, mt: 2 }]}>
+                There are no search results that you are looking for.
+              </Typography>
+            )}
+            <List>
+              {flatUsers.map((user) => (
+                <UserCard user={user} key={user?.id} />
+              ))}
+            </List>
+          </Box>
+
+          <Box className={classes.button}>
+            <Button
+              text="More"
+              uppercase
+              style={{ padding: "13px 16px", width: 343, height: 40 }}
+              onClick={handleFetch}
+            />
+          </Box>
         </Box>
-      </Link>
-
-      <Box className={classes.title2}>
-        <Typography variant="h4">Results</Typography>
-      </Box>
-
-      <Box className={classes.content} width="100%" onScroll={handleScroll}>
-        {error && (
-          <Typography sx={[{ pl: 1, mt: 2 }]}>
-            There are no search results that you are looking for.
-          </Typography>
-        )}
-        <List>
-          {flatUsers.map((user) => (
-            <UserCard user={user} key={user?.id} />
-          ))}
-        </List>
-      </Box>
-
-      <Box className={classes.button}>
-        <Button
-          text="More"
-          uppercase
-          style={{ padding: "13px 16px", width: 343, height: 40 }}
-          onClick={handleFetch}
-        />
-      </Box>
+      </ScrollBar>
     </Box>
   );
 }
