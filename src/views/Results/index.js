@@ -1,8 +1,15 @@
-import { useMemo, useState, useCallback, useRef, useReducer } from "react";
-import { Box, Typography, ImageList, useMediaQuery } from "@mui/material";
+import {
+  useMemo,
+  useState,
+  useCallback,
+  useRef,
+  useReducer,
+  useEffect,
+} from "react";
+import { Box, Typography, ImageList } from "@mui/material";
 import { styled, makeStyles } from "@mui/styles";
 import { useSearchParams } from "react-router-dom";
-import { Link, PullToRefresh, Button } from "components/common";
+import { Link, Button } from "components/common";
 import { ArrowLeftIcon } from "icons";
 import { parse } from "query-string";
 import { fetchUsers } from "api/user";
@@ -32,16 +39,24 @@ const List = styled(ImageList)(({ theme }) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: "relative",
     display: "flex",
     flexDirection: "column",
     padding: `0 ${sizeLevel.desktop}px`,
-    overflow: "hidden",
+    overflow: "hidden scroll",
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+
+    [theme.breakpoints.down("xl")]: {
+      position: "relative",
+      maxHeight: "100%",
+    },
 
     [theme.breakpoints.down("md")]: {
       padding: 0,
       overflow: "hidden",
-      maxHeight: "100%",
     },
   },
   title: {
@@ -56,7 +71,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   title2: {
-    marginTop: 20,
+    zIndex: 1,
+    position: "fixed",
+    width: "100%",
+    paddingTop: 20,
+    backgroundColor: theme.palette.background.default,
     "& .MuiTypography-h4": {
       marginLeft: sizeLevel.offset,
     },
@@ -88,9 +107,9 @@ const useStyles = makeStyles((theme) => ({
   content: {
     [theme.breakpoints.down("md")]: {
       overflow: "hidden scroll",
-      height: "100%",
       flexGrow: 1,
       padding: `0 16px`,
+      marginTop: 65,
     },
   },
 }));
@@ -127,14 +146,12 @@ function reducer(state, action) {
 
 export default function Results() {
   const classes = useStyles();
-  const matchDesktop = useMediaQuery((theme) => theme.breakpoints.up("md"));
   const [searchParams] = useSearchParams();
   const [error, setError] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const page = useRef(0);
   const loading = useRef(false);
-  const scroll = useRef(null);
 
   const params = useMemo(
     () => parse(searchParams?.toString?.() ?? ""),
@@ -178,13 +195,13 @@ export default function Results() {
     [params]
   );
 
-  const handleRefresh = useCallback(async () => {
-    // 已經在加載中，所以不在進行加載
-    if (loading.current) return;
+  // const handleRefresh = useCallback(async () => {
+  //   // 已經在加載中，所以不在進行加載
+  //   if (loading.current) return;
 
-    page.current = 0;
-    getUsers(true);
-  }, [getUsers]);
+  //   page.current = 0;
+  //   getUsers(true);
+  // }, [getUsers]);
 
   const handleFetch = useCallback(async () => {
     // 已經在加載中，所以不再進行加載
@@ -200,12 +217,25 @@ export default function Results() {
     getUsers();
   }, [state, getUsers]);
 
-  const handleScroll = useCallback((e) => {
-    forceCheck();
-  }, []);
+  const handleScroll = useCallback(
+    (e) => {
+      const { scrollTop, scrollHeight, clientHeight } = e.target;
+      const atBottom = scrollHeight - scrollTop - clientHeight < 200;
+
+      if (atBottom) {
+        handleFetch();
+      }
+      forceCheck();
+    },
+    [handleFetch]
+  );
+
+  useEffect(() => {
+    getUsers();
+  }, [getUsers]);
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} onScroll={handleScroll}>
       <Link to="/" fitWidth className={classes.link}>
         <Box className={classes.title}>
           <ArrowIcon />
@@ -217,29 +247,17 @@ export default function Results() {
         <Typography variant="h4">Results</Typography>
       </Box>
 
-      <Box
-        ref={scroll}
-        className={classes.content}
-        width="100%"
-        onScroll={handleScroll}
-      >
+      <Box className={classes.content} width="100%" onScroll={handleScroll}>
         {error && (
           <Typography sx={[{ pl: 1, mt: 2 }]}>
             There are no search results that you are looking for.
           </Typography>
         )}
-        <PullToRefresh
-          container={matchDesktop ? null : scroll.current}
-          fetchMoreThreshold={200}
-          onRefresh={handleRefresh}
-          onFetchMore={handleFetch}
-        >
-          <List>
-            {flatUsers.map((user) => (
-              <UserCard user={user} key={user?.id} />
-            ))}
-          </List>
-        </PullToRefresh>
+        <List>
+          {flatUsers.map((user) => (
+            <UserCard user={user} key={user?.id} />
+          ))}
+        </List>
       </Box>
 
       <Box className={classes.button}>

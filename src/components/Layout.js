@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useLocation } from "react-router-dom";
 import Drawer from "./Drawer";
@@ -10,9 +10,10 @@ import c from "classnames";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    paddingRight: 0,
+    // paddingRight: 0,
+    position: "relative",
     [theme.breakpoints.up("xl")]: {
-      paddingRight: theme.sizes.desktop.profile.width,
+      // paddingRight: theme.sizes.desktop.profile.width,
     },
   },
   body: {
@@ -36,10 +37,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Layout({ children }) {
   const location = useLocation();
   const classes = useStyles();
+  const matchXl = useMediaQuery((theme) => theme.breakpoints.up("xl"));
 
-  const needProfile = useMemo(
-    () => ["/", "/results"].includes(location?.pathname),
-    [location]
+  const showProfile = useMemo(
+    () => matchXl && ["/", "/results"].includes(location?.pathname),
+    [location, matchXl]
   );
 
   const needNavigation = useMemo(
@@ -57,10 +59,10 @@ export default function Layout({ children }) {
         })}
       >
         <Drawer />
-        <Box flexGrow={1} className={c({ [classes.container]: needProfile })}>
+        <Box flexGrow={1} className={c({ [classes.container]: true })}>
           {children}
         </Box>
-        {needProfile && <Profile />}
+        {showProfile && <Profile />}
       </Box>
 
       {needNavigation && <BottomNavigation />}

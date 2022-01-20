@@ -9,15 +9,16 @@ const Follow = lazy(() => import("./Follow"));
 const size = { divider: 2, tabHeight: 48 };
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "none",
+    // display: "block",
+    // position: "fixed",
+    // right: 0,
+    // top: 0,
+    // bottom: 0,
 
-    [theme.breakpoints.up("xl")]: {
-      display: "block",
-      position: "fixed",
-      right: 0,
-      top: 0,
-      bottom: 0,
-    },
+    width: theme.sizes.desktop.profile.width,
+    display: "flex",
+    flexDirection: "column",
+    position: "relative",
   },
   lazy: {
     width: theme.sizes.desktop.profile.width,
@@ -63,34 +64,32 @@ export default function Profile() {
 
   return (
     <Box className={classes.root}>
-      <LazyLoad className={classes.lazy} placeholder={null}>
-        <TabContext value={value}>
-          <Box className={classes.tabs}>
-            <TabList
-              onChange={handleChange}
-              aria-label="Follow friends"
-              allowScrollButtonsMobile
-              variant="fullWidth"
-            >
-              {pages.map(({ value, label }) => (
-                <Tab key={value} label={label} value={value} />
-              ))}
-            </TabList>
-          </Box>
-
-          <Suspense fallback={<LoadingScreen fullScreen />}>
-            {pages.map(({ value, fetch }) => (
-              <Panel
-                key={value}
-                value={value}
-                style={{ padding: 0, width: "100%" }}
-              >
-                <Follow fetch={fetch} />
-              </Panel>
+      <TabContext value={value}>
+        <Box className={classes.tabs}>
+          <TabList
+            onChange={handleChange}
+            aria-label="Follow friends"
+            allowScrollButtonsMobile
+            variant="fullWidth"
+          >
+            {pages.map(({ value, label }) => (
+              <Tab key={value} label={label} value={value} />
             ))}
-          </Suspense>
-        </TabContext>
-      </LazyLoad>
+          </TabList>
+        </Box>
+
+        <Suspense fallback={<LoadingScreen fullScreen />}>
+          {pages.map(({ value, fetch }) => (
+            <Panel
+              key={value}
+              value={value}
+              style={{ padding: 0, width: "100%" }}
+            >
+              <Follow fetch={fetch} />
+            </Panel>
+          ))}
+        </Suspense>
+      </TabContext>
     </Box>
   );
 }
