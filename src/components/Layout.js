@@ -10,11 +10,8 @@ import c from "classnames";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    // paddingRight: 0,
     position: "relative",
-    [theme.breakpoints.up("xl")]: {
-      // paddingRight: theme.sizes.desktop.profile.width,
-    },
+    flexGrow: 1,
   },
   body: {
     paddingTop: theme.sizes.mobile.appBar.height,
@@ -59,9 +56,7 @@ export default function Layout({ children }) {
         })}
       >
         <Drawer />
-        <Box flexGrow={1} className={c({ [classes.container]: true })}>
-          {children}
-        </Box>
+        <Box className={classes.container}>{children}</Box>
         {showProfile && <Profile />}
       </Box>
 

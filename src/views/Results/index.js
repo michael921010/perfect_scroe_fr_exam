@@ -7,6 +7,7 @@ import {
   useEffect,
 } from "react";
 import { Box, Typography, ImageList } from "@mui/material";
+import MuiList from "@mui/material/List";
 import { styled, makeStyles } from "@mui/styles";
 import { useSearchParams } from "react-router-dom";
 import { Link, Button, SimpleBar } from "components/common";
@@ -17,7 +18,7 @@ import { pick } from "ramda";
 import { forceCheck } from "react-lazyload";
 import UserCard from "./UserCard";
 
-const sizeLevel = { desktop: 80, mobile: 20, offset: 20 };
+const sizeLevel = { desktop: 113, mobile: 20, offset: 20 };
 
 const ArrowIcon = styled(ArrowLeftIcon)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
@@ -30,14 +31,16 @@ const ScrollBar = styled(SimpleBar)({
   maxHeight: "100%",
 });
 
-const List = styled(ImageList)(({ theme }) => ({
+const List = styled(MuiList)(({ theme }) => ({
   width: "100%",
   display: "flex",
   flexFlow: "row wrap",
+  paddingTop: 9.5,
+  paddingBottom: 9.5,
 
   [theme.breakpoints.down("md")]: {
-    marginTop: 4,
-    gap: "0 !important",
+    paddingTop: 4,
+    // gap: "0 !important",
   },
 }));
 
@@ -70,7 +73,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginTop: theme.spacing(13),
+    marginTop: 92,
+    marginLeft: -37.5,
 
     "& .MuiTypography-h4": {
       marginLeft: 31,

@@ -19,7 +19,7 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
 
 const Toolbar = styled(MuiToolbar)({
   height: "100%",
-  padding: "0 20px",
+  padding: "0 21px",
 });
 
 const Title = styled(Typography)(({ theme }) => ({

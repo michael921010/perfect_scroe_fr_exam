@@ -9,12 +9,6 @@ const Follow = lazy(() => import("./Follow"));
 const size = { divider: 2, tabHeight: 48 };
 const useStyles = makeStyles((theme) => ({
   root: {
-    // display: "block",
-    // position: "fixed",
-    // right: 0,
-    // top: 0,
-    // bottom: 0,
-
     width: theme.sizes.desktop.profile.width,
     display: "flex",
     flexDirection: "column",
@@ -33,10 +27,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const MyTab = styled(Tab)({
+  paddingTop: 0,
+  paddingBottom: 13,
+  minHeight: 0,
+});
+
 const Panel = styled(TabPanel)({
   flexGrow: 1,
   overflow: "hidden",
-  marginTop: 50,
+  marginTop: 69,
   padding: 0,
   width: "100%",
 });
@@ -69,13 +69,14 @@ export default function Profile() {
       <TabContext value={value}>
         <Box className={classes.tabs}>
           <TabList
+            sx={[{ pt: 4 }]}
             onChange={handleChange}
             aria-label="Follow friends"
             allowScrollButtonsMobile
             variant="fullWidth"
           >
             {pages.map(({ value, label }) => (
-              <Tab key={value} label={label} value={value} />
+              <MyTab key={value} label={label} value={value} />
             ))}
           </TabList>
         </Box>

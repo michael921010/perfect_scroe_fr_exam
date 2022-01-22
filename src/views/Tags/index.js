@@ -2,7 +2,6 @@ import { useEffect, useCallback, useState, useRef } from "react";
 import { Box, Typography, ImageList } from "@mui/material";
 import { styled, makeStyles } from "@mui/styles";
 import { fetchTags } from "api/tag";
-import { forceCheck } from "react-lazyload";
 import { SimpleBar } from "components/common";
 import TagCard from "./TagCard";
 
@@ -42,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
     [theme.breakpoints.down("md")]: {
       marginTop: 0,
-      padding: "20px 0 0 18px",
+      padding: "20px 0 0 20px",
 
       zIndex: 1,
       position: "fixed",
@@ -53,13 +52,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   list: {
-    marginTop: theme.spacing(3),
+    marginTop: 6,
     width: "100%",
 
     [theme.breakpoints.down("md")]: {
       margin: 0,
       padding: "0 13px",
-      paddingTop: 65,
+      paddingTop: 65 + 12,
       gap: "0 !important",
     },
   },
@@ -90,22 +89,16 @@ export default function Tags() {
     }
   }, []);
 
-  const handleScroll = useCallback((e) => {
-    forceCheck();
-  }, []);
-
   useEffect(() => {
     getTags();
   }, [getTags]);
 
   return (
     <Box className={classes.root}>
-      <ScrollBar onScroll={handleScroll}>
+      <ScrollBar>
         <Box className={classes.content}>
           <Box className={classes.title}>
-            <Typography variant="h4" style={{ margin: "0 7px" }}>
-              Tags
-            </Typography>
+            <Typography variant="h4">Tags</Typography>
           </Box>
 
           <List className={classes.list}>

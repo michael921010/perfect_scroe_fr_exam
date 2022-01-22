@@ -4,7 +4,8 @@ import {
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
-import { styled, makeStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
 import { Skeleton, LazyLoad } from "components/common";
 
 const Item = styled(ImageListItem)(({ theme }) => ({
@@ -69,6 +70,12 @@ const TagName = styled(Typography)({
   flexGrow: 0,
 });
 
+const Bar = styled(ImageListItemBar)(({ theme }) => ({
+  ".MuiImageListItemBar-titleWrap": {
+    padding: "10px 0 0 0",
+  },
+}));
+
 const useStyles = makeStyles((theme) => ({
   ellipsis: {
     textOverflow: "ellipsis",
@@ -99,7 +106,7 @@ export default function Tags({ tag }) {
           </Skeleton>
         </LazyLoad>
       </Container>
-      <ImageListItemBar
+      <Bar
         title={
           <Title variant="p" title={tag?.name}>
             <LazyLoad

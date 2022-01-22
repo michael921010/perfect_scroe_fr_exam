@@ -7,7 +7,8 @@ import {
   ListItemAvatar,
   Avatar as MuiAvatar,
 } from "@mui/material";
-import { makeStyles, styled, withStyles } from "@mui/styles";
+import { makeStyles, withStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import { Button, LazyLoad } from "components/common";
 import c from "classnames";
 
@@ -35,6 +36,12 @@ const MyButton = withStyles((theme) => ({
 const ItemText = styled(ListItemText)({
   display: "flex",
   flexDirection: "column",
+  margin: 0,
+});
+
+const ItemButton = styled(ListItemButton)({
+  paddingTop: 5,
+  paddingBottom: 5,
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -89,7 +96,7 @@ export default function Follower({ follower }) {
       }
       disablePadding
     >
-      <ListItemButton style={{ paddingRight: (isFollowing ? 76 : 60) + 16 }}>
+      <ItemButton style={{ paddingRight: (isFollowing ? 77 : 65) + 16 }}>
         <ListItemAvatar>
           <LazyLoad skeletonProps={skeletonProps.avatar}>
             <Avatar
@@ -129,7 +136,7 @@ export default function Follower({ follower }) {
             </LazyLoad>
           }
         />
-      </ListItemButton>
+      </ItemButton>
     </ListItem>
   );
 }

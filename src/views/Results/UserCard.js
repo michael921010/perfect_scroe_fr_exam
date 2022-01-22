@@ -4,11 +4,11 @@ import {
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
-import { styled } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import { LazyLoadImage, LazyLoad } from "components/common";
 
 const Item = styled(ImageListItem)(({ theme }) => ({
-  margin: "15px 17px",
+  margin: "15.5px 17px",
   [theme.breakpoints.down("md")]: {
     margin: "16px 0",
     width: `${100 / 3}%`,
@@ -47,6 +47,15 @@ const ImageFrame = styled(Box)(({ theme }) => ({
   },
 }));
 
+const Bar = styled(ImageListItemBar)(({ theme }) => ({
+  ".MuiImageListItemBar-titleWrap": {
+    padding: "12px 0 0 0",
+    [theme.breakpoints.down("md")]: {
+      padding: "20px 0 0 0",
+    },
+  },
+}));
+
 export default function Results({ user }) {
   return (
     <Item>
@@ -59,7 +68,7 @@ export default function Results({ user }) {
           loading="lazy"
         />
       </ImageFrame>
-      <ImageListItemBar
+      <Bar
         title={
           <Title variant="p" title={user?.name}>
             <LazyLoad

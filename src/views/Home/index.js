@@ -28,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   content: {
+    [theme.breakpoints.down("md")]: {
+      paddingBottom: 110,
+    },
+  },
+  wrapper: {
     display: "flex",
     position: "relative",
     flexDirection: "column",
@@ -40,59 +45,93 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   title: {
-    marginTop: theme.spacing(7),
+    marginTop: 54,
     width: "100%",
+    maxWidth: 725,
 
     [theme.breakpoints.down("md")]: {
       marginTop: 0,
-      maxWidth: 725,
+    },
+  },
+  field: {
+    marginTop: 20,
+    maxWidth: 725,
+    [theme.breakpoints.down("md")]: {
+      marginTop: 16,
     },
   },
   slideBar: {
-    marginTop: theme.spacing(7),
+    marginTop: 30,
     width: "100%",
+    maxWidth: 725,
+
     [theme.breakpoints.down("md")]: {
-      maxWidth: 725,
+      marginTop: 28,
     },
   },
-  divider: {
+  results: {
+    marginTop: 20,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-end",
+    [theme.breakpoints.down("md")]: {
+      marginTop: 16,
+    },
+  },
+  slider: {
+    marginTop: 20,
+    [theme.breakpoints.down("md")]: {
+      marginTop: 30,
+    },
+  },
+  divider1: {
     backgroundColor: theme.palette.common.white,
-    marginTop: theme.spacing(3),
+    marginTop: 30,
     border: `1px solid ${theme.palette.common.white}`,
     width: "100%",
     opacity: 0.1,
+    maxWidth: 725,
 
-    [theme.breakpoints.down("sm")]: {
-      marginTop: 221,
-    },
     [theme.breakpoints.down("md")]: {
-      maxWidth: 725,
+      display: "none",
+    },
+  },
+  divider2: {
+    backgroundColor: theme.palette.common.white,
+    marginTop: 20,
+    border: `1px solid ${theme.palette.common.white}`,
+    width: "100%",
+    opacity: 0.1,
+    maxWidth: 725,
+
+    [theme.breakpoints.down("md")]: {
+      marginTop: 221,
     },
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: "150%",
     letterSpacing: 0.15,
     flex: "none",
     order: 0,
     flexGrow: 0,
-    margin: "0 8px",
+    margin: "0 10px",
   },
   button: {
     display: "flex",
-    marginTop: theme.spacing(4),
     position: "fixed",
     bottom: 87,
     left: pagePadding.desktop + theme.sizes.desktop.menu.width,
 
     [theme.breakpoints.down("md")]: {
-      position: "relative",
-      left: "initial",
-      bottom: "initial",
+      position: "fixed",
+      left: 0,
+      right: 0,
+      bottom: theme.sizes.mobile.bottomNavigation.height,
+      padding: "46px 20px 24px 20px",
+      display: "flex",
       justifyContent: "center",
-      width: "100%",
-      marginTop: theme.spacing(10),
-      maxWidth: 725,
+      backgroundColor: theme.palette.background.default,
     },
   },
 }));
@@ -103,8 +142,9 @@ const Submit = withStyles((theme) => ({
     width: 343,
     height: 40,
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       width: "100%",
+      maxWidth: 725,
     },
   },
 }))(Button);
@@ -156,55 +196,51 @@ export default function Home() {
     <Box className={classes.root}>
       <ScrollBar>
         <Box className={classes.content}>
-          <Box className={classes.title}>
-            <Typography variant="h5" style={{ height: 36 }}>
-              Search
-            </Typography>
-
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                type="text"
-                value={query}
-                onChange={handleQuery}
-                placeholder="Keyword"
-              />
-            </Box>
-          </Box>
-
-          <Box className={classes.slideBar}>
-            <Typography variant="h5" style={{ height: 36 }}>
-              # of results per page
-            </Typography>
-
-            <Box
-              mt={4}
-              display="flex"
-              flexDirection="row"
-              alignItems="flex-end"
-            >
-              <Typography variant="h3" style={{ height: 50 }}>
-                {sliderInfo?.label ?? ""}
+          <Box className={classes.wrapper}>
+            <Box className={classes.title}>
+              <Typography variant="h5" style={{ height: 36 }}>
+                Search
               </Typography>
-              <Typography style={{ height: 24 }} className={classes.subtitle}>
-                results
+
+              <Box className={classes.field}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  value={query}
+                  onChange={handleQuery}
+                  placeholder="Keyword"
+                />
+              </Box>
+            </Box>
+
+            <Divider className={classes.divider1} />
+
+            <Box className={classes.slideBar}>
+              <Typography variant="h5" style={{ height: 36 }}>
+                # of results per page
               </Typography>
+
+              <Box className={classes.results}>
+                <Typography variant="h3" style={{ height: 50 }}>
+                  {sliderInfo?.label ?? ""}
+                </Typography>
+                <Typography className={classes.subtitle}>results</Typography>
+              </Box>
+              <Box className={classes.slider}>
+                <SliderBar
+                  min={marks?.[0]?.value}
+                  max={last(marks)?.value}
+                  step={null}
+                  value={sliderInfo.value}
+                  thumbShadow={false}
+                  marks={marks}
+                  onChange={handleSlider}
+                />
+              </Box>
             </Box>
-            <Box mt={1}>
-              <SliderBar
-                min={marks?.[0]?.value}
-                max={last(marks)?.value}
-                step={null}
-                value={sliderInfo.value}
-                thumbShadow={false}
-                marks={marks}
-                onChange={handleSlider}
-              />
-            </Box>
+
+            <Divider className={classes.divider2} />
           </Box>
-
-          <Divider className={classes.divider} />
-
           <Box className={classes.button}>
             <Submit text="Search" uppercase onClick={submit} />
           </Box>
