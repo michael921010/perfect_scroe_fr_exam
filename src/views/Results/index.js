@@ -237,6 +237,9 @@ export default function Results() {
 
   return (
     <Box className={classes.root}>
+      <Box className={classes.title2}>
+        <Typography variant="h4">Results</Typography>
+      </Box>
       <ScrollBar onScroll={handleScroll}>
         <Box className={classes.content}>
           <Link to="/" fitWidth className={classes.link}>
@@ -245,10 +248,6 @@ export default function Results() {
               <Typography variant="h4">Results</Typography>
             </Box>
           </Link>
-
-          <Box className={classes.title2}>
-            <Typography variant="h4">Results</Typography>
-          </Box>
 
           <Box className={classes.listWrap}>
             {error && (

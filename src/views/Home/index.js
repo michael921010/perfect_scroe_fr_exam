@@ -241,11 +241,11 @@ export default function Home() {
 
             <Divider className={classes.divider2} />
           </Box>
-          <Box className={classes.button}>
-            <Submit text="Search" uppercase onClick={submit} />
-          </Box>
         </Box>
       </ScrollBar>
+      <Box className={classes.button}>
+        <Submit text="Search" uppercase onClick={submit} />
+      </Box>
     </Box>
   );
 }
