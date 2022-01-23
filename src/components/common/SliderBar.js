@@ -1,4 +1,4 @@
-import { Slider } from "@mui/material";
+import { Slider, Box } from "@mui/material";
 import { makeStyles, withStyles } from "@mui/styles";
 import c from "classnames";
 
@@ -14,6 +14,9 @@ const CutomizedSlider = withStyles((theme) => ({
     backgroundColor: theme.palette.common.white,
     opacity: 0.3,
     boxSizing: "border-box",
+    left: -5,
+    right: -10,
+    width: "initial",
   },
   thumb: {
     width: thumbSize,
@@ -27,6 +30,7 @@ const CutomizedSlider = withStyles((theme) => ({
   track: {
     background: `linear-gradient(to right, #FF5C01, #FFD25F)`,
     border: "none",
+    left: "-5px !important",
   },
   mark: {
     opacity: 0,
@@ -43,6 +47,9 @@ const CutomizedSlider = withStyles((theme) => ({
 }))(Slider);
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: "13px 10px 13px 5px",
+  },
   hideThumbShadow: {
     boxShadow: "none !important",
     "&::before": {
@@ -54,16 +61,19 @@ const useStyles = makeStyles((theme) => ({
 export default function SliderBar({ thumbShadow, onChange, ...props }) {
   const classes = useStyles();
   return (
-    <CutomizedSlider
-      valueLabelDisplay="off" // 關閉 thumb 顯示的 value
-      onChange={onChange}
-      classes={{
-        thumb: c({
-          [classes.hideThumbShadow]: !thumbShadow,
-        }),
-      }}
-      {...props}
-    />
+    <Box className={classes.root}>
+      <CutomizedSlider
+        isRtl
+        valueLabelDisplay="off" // 關閉 thumb 顯示的 value
+        onChange={onChange}
+        classes={{
+          thumb: c({
+            [classes.hideThumbShadow]: !thumbShadow,
+          }),
+        }}
+        {...props}
+      />
+    </Box>
   );
 }
 
