@@ -3,6 +3,8 @@
 This is a project about the [Perfect Score Exam](https://docs.google.com/document/d/1OfUtksOOGix-W81D6URAAtPOhabH_mcLEHEq5qZGMlg/edit).
 The project is hoisting at [Here](https://perfect-score-fr-exam.web.app).
 
+**Pixel-Perfect Side-by-Side** Testing is at [Here](https://www.figma.com/file/kxD5dKA1ypkVyrLzwFLNTh/Untitled?node-id=0%3A1)
+
 ## Available Scripts
 
 ### `npm start`
