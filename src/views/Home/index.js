@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   slider: {
     marginTop: 20,
     [theme.breakpoints.down("md")]: {
-      marginTop: 30,
+      marginTop: 10,
     },
   },
   divider1: {
@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 725,
 
     [theme.breakpoints.down("md")]: {
-      marginTop: 221,
+      marginTop: 211,
     },
   },
   subtitle: {
@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
     flex: "none",
     order: 0,
     flexGrow: 0,
-    margin: "0 10px",
+    marginBottom: 4,
   },
   button: {
     display: "flex",

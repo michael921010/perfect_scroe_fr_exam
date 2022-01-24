@@ -29,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
 
 const MyTab = styled(Tab)({
   paddingTop: 0,
-  paddingBottom: 13,
+  paddingBottom: 9,
   minHeight: 0,
 });
 
 const Panel = styled(TabPanel)({
   flexGrow: 1,
   overflow: "hidden",
-  marginTop: 69,
+  marginTop: 65,
   padding: 0,
   width: "100%",
 });

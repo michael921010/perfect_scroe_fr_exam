@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState, useRef } from "react";
-import { Box, Typography, ImageList } from "@mui/material";
+import { Box, Typography, ImageList, useMediaQuery } from "@mui/material";
 import { styled, makeStyles } from "@mui/styles";
 import { fetchTags } from "api/tag";
 import { SimpleBar } from "components/common";
@@ -10,12 +10,20 @@ const ScrollBar = styled(SimpleBar)({
   maxHeight: "100%",
 });
 
-const List = styled(ImageList)({
+const List = styled(ImageList)(({ theme }) => ({
   width: "100%",
   display: "flex",
   flexDirection: "row",
   flexWrap: "wrap",
-});
+  marginTop: 6,
+
+  [theme.breakpoints.down("md")]: {
+    margin: 0,
+    padding: "0 13px",
+    paddingTop: 56 + 12,
+    gap: "0 !important",
+  },
+}));
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,15 +37,15 @@ const useStyles = makeStyles((theme) => ({
   content: {
     display: "flex",
     flexDirection: "column",
-    padding: theme.spacing(0, 32),
+    padding: "0 256px 0 250px",
 
     [theme.breakpoints.down("md")]: {
       padding: 0,
     },
   },
   title: {
-    marginTop: theme.spacing(10),
-    paddingLeft: theme.spacing(0.5),
+    marginTop: 81,
+    paddingLeft: 3,
 
     [theme.breakpoints.down("md")]: {
       marginTop: 0,
@@ -51,22 +59,12 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
   },
-  list: {
-    marginTop: 6,
-    width: "100%",
-
-    [theme.breakpoints.down("md")]: {
-      margin: 0,
-      padding: "0 13px",
-      paddingTop: 65 + 12,
-      gap: "0 !important",
-    },
-  },
 }));
 
 export default function Tags() {
   const classes = useStyles();
   const [tags, setTags] = useState([]);
+  const matchMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   const loading = useRef(false);
 
@@ -98,10 +96,10 @@ export default function Tags() {
       <ScrollBar>
         <Box className={classes.content}>
           <Box className={classes.title}>
-            <Typography variant="h4">Tags</Typography>
+            <Typography variant={matchMobile ? "h5" : "h4"}>Tags</Typography>
           </Box>
 
-          <List className={classes.list}>
+          <List>
             {tags.map((tag) => (
               <TagCard key={tag?.id} tag={tag} />
             ))}

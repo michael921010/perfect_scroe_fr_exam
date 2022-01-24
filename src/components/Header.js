@@ -24,7 +24,7 @@ const Toolbar = styled(MuiToolbar)({
 
 const Title = styled(Typography)(({ theme }) => ({
   textTransform: "capitalize",
-  marginLeft: 20,
+  marginLeft: 11,
 }));
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +48,7 @@ export default function Header() {
         {general && (
           <Link to="/" fitWidth className={classes.link}>
             <ArrowLeftIcon />
-            <Title variant="h4">Home page</Title>
+            <Title variant="h5">Home page</Title>
           </Link>
         )}
 

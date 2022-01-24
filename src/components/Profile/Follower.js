@@ -14,7 +14,7 @@ import c from "classnames";
 
 const Avatar = styled(MuiAvatar)({
   border: `1px solid #F8F8F8`,
-  "> img": {
+  img: {
     objectFit: "cover",
   },
 });
@@ -33,6 +33,14 @@ const MyButton = withStyles((theme) => ({
   },
 }))(Button);
 
+const Item = styled(ListItem)({
+  position: "relative",
+  padding: "6px 16px",
+  ".MuiListItemSecondaryAction-root": {
+    right: 16,
+  },
+});
+
 const ItemText = styled(ListItemText)({
   display: "flex",
   flexDirection: "column",
@@ -40,8 +48,7 @@ const ItemText = styled(ListItemText)({
 });
 
 const ItemButton = styled(ListItemButton)({
-  paddingTop: 5,
-  paddingBottom: 5,
+  padding: 0,
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -82,10 +89,10 @@ export default function Follower({ follower }) {
   const isFollowing = useMemo(() => follower?.isFollowing, [follower]);
 
   return (
-    <ListItem
+    <Item
       key={follower?.id}
       secondaryAction={
-        <LazyLoad placeholder={null}>
+        <LazyLoad style={{ lineHeight: "100%" }} placeholder={null}>
           <MyButton
             capitalize
             style={{ width: isFollowing ? 76 : 60 }}
@@ -113,7 +120,10 @@ export default function Follower({ follower }) {
           id={follower?.id}
           disableTypography
           primary={
-            <LazyLoad skeletonProps={skeletonProps.name}>
+            <LazyLoad
+              style={{ lineHeight: "100%" }}
+              skeletonProps={skeletonProps.name}
+            >
               <Typography
                 variant="body1"
                 title={follower?.name}
@@ -124,7 +134,10 @@ export default function Follower({ follower }) {
             </LazyLoad>
           }
           secondary={
-            <LazyLoad skeletonProps={skeletonProps.username}>
+            <LazyLoad
+              style={{ lineHeight: "100%" }}
+              skeletonProps={skeletonProps.username}
+            >
               <Typography
                 variant="body2"
                 title={follower?.username}
@@ -137,6 +150,6 @@ export default function Follower({ follower }) {
           }
         />
       </ItemButton>
-    </ListItem>
+    </Item>
   );
 }

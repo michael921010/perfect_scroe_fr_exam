@@ -9,7 +9,7 @@ import { makeStyles } from "@mui/styles";
 import { Skeleton, LazyLoad } from "components/common";
 
 const Item = styled(ImageListItem)(({ theme }) => ({
-  margin: "18px 12px",
+  margin: "16px 12px",
   width: 150,
   height: 150,
 
@@ -21,7 +21,7 @@ const Item = styled(ImageListItem)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     width: `${100 / 2}%`,
   },
-  [theme.breakpoints.down("xs")]: {
+  "@media (max-width:360px)": {
     width: "100%",
   },
 }));

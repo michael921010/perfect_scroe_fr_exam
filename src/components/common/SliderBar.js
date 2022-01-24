@@ -2,7 +2,7 @@ import { Slider, Box } from "@mui/material";
 import { makeStyles, withStyles } from "@mui/styles";
 import c from "classnames";
 
-const thumbSize = 20;
+const thumbSize = 23;
 const CutomizedSlider = withStyles((theme) => ({
   root: {
     boxSizing: "border-box",
@@ -14,8 +14,8 @@ const CutomizedSlider = withStyles((theme) => ({
     backgroundColor: theme.palette.common.white,
     opacity: 0.3,
     boxSizing: "border-box",
-    left: -5,
-    right: -10,
+    left: -4,
+    right: -8,
     width: "initial",
   },
   thumb: {
@@ -40,6 +40,12 @@ const CutomizedSlider = withStyles((theme) => ({
     fontSize: 16,
     lineHeight: "150%",
     letterSpacing: 0.15,
+
+    [theme.breakpoints.down("md")]: {
+      fontSize: 14,
+      fontWeight: "normal",
+      letterSpacing: 0.25,
+    },
   },
   markLabelActive: {
     opacity: 1,
@@ -48,7 +54,7 @@ const CutomizedSlider = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: "13px 10px 13px 5px",
+    padding: "0px 8px 0px 4px",
   },
   hideThumbShadow: {
     boxShadow: "none !important",

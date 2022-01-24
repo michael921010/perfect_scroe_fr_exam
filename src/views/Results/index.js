@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 92,
-    marginLeft: -37.5,
+    marginLeft: -34,
 
     "& .MuiTypography-h4": {
       marginLeft: 31,
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     paddingTop: 20,
     backgroundColor: theme.palette.background.default,
-    "& .MuiTypography-h4": {
+    "& .MuiTypography-h5": {
       marginLeft: sizeLevel.offset,
     },
 
@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       flexGrow: 1,
       padding: `0 16px`,
-      marginTop: 65,
+      marginTop: 56,
     },
   },
 }));
@@ -238,7 +238,7 @@ export default function Results() {
   return (
     <Box className={classes.root}>
       <Box className={classes.title2}>
-        <Typography variant="h4">Results</Typography>
+        <Typography variant="h5">Results</Typography>
       </Box>
       <ScrollBar onScroll={handleScroll}>
         <Box className={classes.content}>

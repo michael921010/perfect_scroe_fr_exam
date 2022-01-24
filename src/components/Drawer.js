@@ -1,6 +1,8 @@
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import { Box, List, ListItemText, ListItemIcon } from "@mui/material";
+import { Box, ListItemIcon } from "@mui/material";
+import MuiList from "@mui/material/List";
+import MuiListItemText from "@mui/material/ListItemText";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiListItem from "@mui/material/ListItem";
 import { Link, Logo } from "components/common";
@@ -31,6 +33,8 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   padding: theme.spacing(0, 1),
+  width: "100%",
+  height: 88,
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
@@ -38,6 +42,7 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
 const ListItem = styled(MuiListItem)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  padding: "8.5px 16px",
 
   "&:hover": {
     svg: {
@@ -84,6 +89,14 @@ const ListItem = styled(MuiListItem)(({ theme }) => ({
     },
   },
 }));
+
+const List = styled(MuiList)({
+  padding: 0,
+});
+
+const ListItemText = styled(MuiListItemText)({
+  margin: 0,
+});
 
 const useStyles = makeStyles((theme) => ({
   selected: {
